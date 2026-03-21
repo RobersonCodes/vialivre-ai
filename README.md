@@ -140,7 +140,9 @@ vialivre-ai
 │   └── schema.sql
 │
 └── README.md
+
 Como executar o projeto
+
 1. clonar o repositório
 git clone https://github.com/RobersonCodes/vialivre-ai.git
 2. acessar pasta do backend
