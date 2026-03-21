@@ -83,6 +83,11 @@ function mostrarHistorico() {
   let lista = document.getElementById("lista");
   lista.innerHTML = "";
 
+  if (historico.length === 0) {
+    lista.innerHTML = "<li>Nenhuma análise realizada ainda.</li>";
+    return;
+  }
+
   historico.forEach(item => {
     lista.innerHTML += `
       <li>
@@ -92,3 +97,10 @@ function mostrarHistorico() {
     `;
   });
 }
+
+function limparHistorico() {
+  historico = [];
+  mostrarHistorico();
+}
+
+mostrarHistorico();
