@@ -1,10 +1,15 @@
-let historico = [];
+let historico = JSON.parse(localStorage.getItem("historicoTrajetos")) || [];
+
+function salvarHistorico() {
+  localStorage.setItem("historicoTrajetos", JSON.stringify(historico));
+}
 
 function analisar() {
   let origem = document.getElementById("origem").value;
   let destino = document.getElementById("destino").value;
   let horario = document.getElementById("horario").value;
   let clima = document.getElementById("clima").value;
+  let transporte = document.getElementById("transporte").value;
 
   let resultado = document.getElementById("resultado");
 
@@ -40,7 +45,19 @@ function analisar() {
     tempoBase += 5;
   }
 
-  if (trafego === "intenso" && clima === "chuva") {
+  if (transporte === "moto") {
+    tempoBase -= 5;
+  } else if (transporte === "onibus") {
+    tempoBase += 10;
+  }
+
+  if (tempoBase < 10) {
+    tempoBase = 10;
+  }
+
+  if (trafego === "intenso" && clima === "chuva" && transporte === "onibus") {
+    mensagem = "Trânsito intenso com chuva. Para ônibus, o ideal é sair 30 minutos antes.";
+  } else if (trafego === "intenso" && clima === "chuva") {
     mensagem = "Trânsito intenso com chuva. O ideal é sair 25 a 30 minutos antes.";
   } else if (trafego === "intenso") {
     mensagem = "Trânsito intenso. Recomendamos sair com pelo menos 20 minutos de antecedência.";
@@ -58,6 +75,7 @@ function analisar() {
     <strong>Destino:</strong> ${destino} <br>
     <strong>Horário:</strong> ${horario} <br>
     <strong>Clima:</strong> ${clima} <br>
+    <strong>Transporte:</strong> ${transporte} <br>
     <strong>Nível de trânsito:</strong> ${trafego} <br>
     <strong>Tempo estimado:</strong> ${tempoBase} minutos <br><br>
     <strong>Recomendação:</strong> ${mensagem}
@@ -68,6 +86,7 @@ function analisar() {
     destino,
     horario,
     clima,
+    transporte,
     tempoBase,
     trafego
   });
@@ -76,6 +95,7 @@ function analisar() {
     historico.pop();
   }
 
+  salvarHistorico();
   mostrarHistorico();
 }
 
@@ -92,7 +112,7 @@ function mostrarHistorico() {
     lista.innerHTML += `
       <li>
         <strong>${item.origem} → ${item.destino}</strong><br>
-        Horário: ${item.horario} | Clima: ${item.clima} | Tempo: ${item.tempoBase} min | Tráfego: ${item.trafego}
+        Horário: ${item.horario} | Clima: ${item.clima} | Transporte: ${item.transporte} | Tempo: ${item.tempoBase} min | Tráfego: ${item.trafego}
       </li>
     `;
   });
@@ -100,6 +120,7 @@ function mostrarHistorico() {
 
 function limparHistorico() {
   historico = [];
+  localStorage.removeItem("historicoTrajetos");
   mostrarHistorico();
 }
 
