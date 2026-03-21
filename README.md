@@ -140,6 +140,7 @@ O zoom é ajustado automaticamente para melhorar a visualização dos pontos no 
 ### Backend
 - Node.js
 - Express
+- SQLite
 
 ### Outros recursos
 - API REST
@@ -155,10 +156,11 @@ O zoom é ajustado automaticamente para melhorar a visualização dos pontos no 
 vialivre-ai
 │
 ├── backend
-│   ├── routes
 │   ├── controllers
+│   ├── database
+│   ├── models
+│   ├── routes
 │   ├── services
-│   ├── config
 │   └── server.js
 │
 ├── frontend
@@ -166,20 +168,15 @@ vialivre-ai
 │   ├── style.css
 │   └── script.js
 │
-├── database
-│   └── schema.sql
-│
+├── .gitignore
 └── README.md
-
+Como executar o projeto
 1. Clonar o repositório
 git clone https://github.com/RobersonCodes/vialivre-ai.git
-
 2. Acessar a pasta do backend
 cd vialivre-ai/backend
-
 3. Instalar as dependências
 npm install
-
 4. Iniciar o servidor
 node server.js
 
@@ -192,7 +189,7 @@ Abra o arquivo:
 
 frontend/index.html
 
-Ou utilize a extensão Live Server no VS Code.
+ou utilize a extensão Live Server no VS Code.
 
 Endpoints da API
 Listar análises
@@ -209,7 +206,7 @@ Exemplo de body
 }
 Limpar histórico
 DELETE /api/analises
-Objetivos do projeto
+Objetivo do projeto
 
 Este projeto foi desenvolvido para demonstrar conhecimentos em:
 
@@ -240,3 +237,9 @@ Roberson de Oliveira
 Desenvolvedor em formação com foco em backend.
 
 Profissional em transição de carreira, com experiência anterior na área industrial e dedicação ao desenvolvimento de projetos práticos para fortalecimento do portfólio em tecnologia.
+
+Status do projeto
+
+Em desenvolvimento 🚧
+
+Projeto em evolução contínua, com foco em aprendizado prático, melhoria de arquitetura e fortalecimento de portfólio profissional.
