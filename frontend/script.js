@@ -1,8 +1,11 @@
+let historico = [];
+
 function analisar() {
   let origem = document.getElementById("origem").value;
   let destino = document.getElementById("destino").value;
   let horario = document.getElementById("horario").value;
   let clima = document.getElementById("clima").value;
+
   let resultado = document.getElementById("resultado");
 
   if (!origem || !destino || !horario) {
@@ -59,4 +62,33 @@ function analisar() {
     <strong>Tempo estimado:</strong> ${tempoBase} minutos <br><br>
     <strong>Recomendação:</strong> ${mensagem}
   `;
+
+  historico.unshift({
+    origem,
+    destino,
+    horario,
+    clima,
+    tempoBase,
+    trafego
+  });
+
+  if (historico.length > 5) {
+    historico.pop();
+  }
+
+  mostrarHistorico();
+}
+
+function mostrarHistorico() {
+  let lista = document.getElementById("lista");
+  lista.innerHTML = "";
+
+  historico.forEach(item => {
+    lista.innerHTML += `
+      <li>
+        <strong>${item.origem} → ${item.destino}</strong><br>
+        Horário: ${item.horario} | Clima: ${item.clima} | Tempo: ${item.tempoBase} min | Tráfego: ${item.trafego}
+      </li>
+    `;
+  });
 }
