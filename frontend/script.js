@@ -1,21 +1,55 @@
-function analisar(){
+function analisar() {
+  let origem = document.getElementById("origem").value;
+  let destino = document.getElementById("destino").value;
+  let horario = document.getElementById("horario").value;
+  let clima = document.getElementById("clima").value;
 
-let trafego = document.getElementById("trafego").value;
+  if (!origem || !destino || !horario) {
+    document.getElementById("resultado").innerText =
+      "Preencha origem, destino e horário para fazer a análise.";
+    return;
+  }
 
-let mensagem = "";
+  let hora = parseInt(horario.split(":")[0]);
+  let tempoBase = 20;
+  let trafego = "";
+  let mensagem = "";
 
-if(trafego === "leve"){
-mensagem = "Trânsito tranquilo. Você pode sair no horário planejado.";
-}
+  if ((hora >= 7 && hora <= 9) || (hora >= 17 && hora <= 19)) {
+    tempoBase += 25;
+    trafego = "intenso";
+  } else if ((hora >= 6 && hora < 7) || (hora > 9 && hora <= 10) || (hora >= 16 && hora < 17) || (hora > 19 && hora <= 20)) {
+    tempoBase += 10;
+    trafego = "moderado";
+  } else {
+    trafego = "leve";
+  }
 
-else if(trafego === "moderado"){
-mensagem = "Trânsito moderado. Considere sair 10 minutos antes.";
-}
+  if (clima === "chuva") {
+    tempoBase += 15;
+  } else if (clima === "nublado") {
+    tempoBase += 5;
+  }
 
-else{
-mensagem = "Trânsito intenso. Recomendamos sair 20 a 30 minutos antes.";
-}
+  if (trafego === "intenso" && clima === "chuva") {
+    mensagem = "Trânsito intenso com chuva. O ideal é sair 25 a 30 minutos antes.";
+  } else if (trafego === "intenso") {
+    mensagem = "Trânsito intenso. Recomendamos sair com pelo menos 20 minutos de antecedência.";
+  } else if (trafego === "moderado" && clima === "chuva") {
+    mensagem = "Trânsito moderado com chuva. Considere sair 15 minutos antes.";
+  } else if (trafego === "moderado") {
+    mensagem = "Trânsito moderado. Considere sair 10 minutos antes.";
+  } else {
+    mensagem = "Trânsito tranquilo. Você pode sair no horário planejado.";
+  }
 
-document.getElementById("resultado").innerText = mensagem;
-
+  document.getElementById("resultado").innerHTML = `
+    <strong>Origem:</strong> ${origem} <br>
+    <strong>Destino:</strong> ${destino} <br>
+    <strong>Horário:</strong> ${horario} <br>
+    <strong>Clima:</strong> ${clima} <br>
+    <strong>Nível de trânsito:</strong> ${trafego} <br>
+    <strong>Tempo estimado:</strong> ${tempoBase} minutos <br><br>
+    <strong>Recomendação:</strong> ${mensagem}
+  `;
 }
