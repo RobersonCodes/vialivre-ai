@@ -4,10 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ViaLivre AI</title>
+
   <link rel="stylesheet" href="style.css">
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
 </head>
 <body>
+
   <header class="hero">
     <div class="container">
       <span class="badge-top">🚦 Mobilidade Inteligente</span>
@@ -17,6 +32,7 @@
   </header>
 
   <main class="container">
+
     <section class="stats-grid">
       <div class="stat-card">
         <span class="stat-label">Total de análises</span>
@@ -64,31 +80,32 @@
     </section>
 
     <section class="card">
-  <h2>📊 Resultado da análise</h2>
+      <h2>📊 Resultado da análise</h2>
 
-  <div id="resultado" class="resultado neutro">
-    A recomendação aparecerá aqui.
-  </div>
+      <div id="resultado" class="resultado neutro">
+        A recomendação aparecerá aqui.
+      </div>
 
-  <div class="risk-box">
-    <div class="risk-topo">
-      <span>Nível de risco</span>
-      <strong id="risk-label">--</strong>
-    </div>
+      <div class="risk-box">
+        <div class="risk-topo">
+          <span>Nível de risco</span>
+          <strong id="risk-label">--</strong>
+        </div>
 
-    <div class="risk-bar">
-      <div id="risk-fill" class="risk-fill"></div>
-    </div>
+        <div class="risk-bar">
+          <div id="risk-fill" class="risk-fill"></div>
+        </div>
 
-    <small id="risk-percent">0%</small>
-  </div>
-</section>
+        <small id="risk-percent">0%</small>
+      </div>
+    </section>
 
     <section class="card">
       <div class="historico-topo">
         <h2>🕘 Histórico</h2>
         <button class="btn-limpar" onclick="limparHistorico()">Limpar histórico</button>
       </div>
+
       <ul id="lista"></ul>
     </section>
 
@@ -96,6 +113,12 @@
       <h2>📈 Histórico de tempo de trajeto</h2>
       <canvas id="grafico"></canvas>
     </section>
+
+    <section class="card">
+      <h2>🗺️ Mapa do trajeto</h2>
+      <div id="mapa"></div>
+    </section>
+
   </main>
 
   <footer>

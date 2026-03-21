@@ -16,34 +16,7 @@ body {
   padding: 20px;
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin-top: 24px;
-}
-
-.stat-card {
-  background: white;
-  border-radius: 18px;
-  padding: 20px;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-  border: 1px solid #e2e8f0;
-  text-align: center;
-}
-
-.stat-label {
-  display: block;
-  font-size: 0.95rem;
-  color: #64748b;
-  margin-bottom: 10px;
-}
-
-.stat-card strong {
-  font-size: 1.8rem;
-  color: #0d6efd;
-}
-
+/* HERO */
 .hero {
   background: linear-gradient(135deg, #0d6efd, #0b5ed7, #084298);
   color: white;
@@ -74,6 +47,36 @@ body {
   font-weight: bold;
 }
 
+/* STATS */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  border: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.95rem;
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+.stat-card strong {
+  font-size: 1.8rem;
+  color: #0d6efd;
+}
+
+/* CARDS */
 .card {
   background: white;
   padding: 24px;
@@ -89,6 +92,7 @@ h2 {
   font-size: 1.35rem;
 }
 
+/* FORM */
 label {
   display: block;
   margin-top: 12px;
@@ -136,6 +140,7 @@ button:hover {
   box-shadow: 0 8px 18px rgba(13, 110, 253, 0.22);
 }
 
+/* RESULTADO */
 .resultado {
   padding: 18px;
   border-radius: 12px;
@@ -168,111 +173,7 @@ button:hover {
   color: #991b1b;
 }
 
-.historico-topo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.btn-limpar {
-  width: auto;
-  padding: 10px 16px;
-  background: linear-gradient(90deg, #dc3545, #bb2d3b);
-}
-
-.btn-limpar:hover {
-  box-shadow: 0 8px 18px rgba(220, 53, 69, 0.22);
-}
-
-#lista {
-  list-style: none;
-  padding-left: 0;
-}
-
-#lista li {
-  background: #f8fafc;
-  margin-bottom: 12px;
-  padding: 14px;
-  border-radius: 12px;
-  border-left: 5px solid #0d6efd;
-  line-height: 1.6;
-  color: #334155;
-}
-
-#grafico {
-  width: 100%;
-  max-height: 320px;
-}
-
-footer {
-  text-align: center;
-  color: #64748b;
-  padding: 28px 20px 36px;
-  font-size: 0.95rem;
-}
-
-@media (max-width: 700px) {
-  .hero h1 {
-    font-size: 2.1rem;
-  }
-
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .historico-topo {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .btn-limpar {
-    width: 100%;
-  }
-}
-#lista {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 10px;
-}
-
-#lista li {
-  background: #f8fafc;
-  margin-bottom: 12px;
-  padding: 14px;
-  border-radius: 12px;
-  border-left: 5px solid #0d6efd;
-  line-height: 1.6;
-  color: #334155;
-}
-
-#grafico {
-  width: 100%;
-  min-height: 320px;
-  max-height: 320px;
-}
-#lista {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 10px;
-}
-
-#lista li {
-  background: #f8fafc;
-  margin-bottom: 12px;
-  padding: 14px;
-  border-radius: 12px;
-  border-left: 5px solid #0d6efd;
-  line-height: 1.6;
-  color: #334155;
-}
-
-#grafico {
-  width: 100%;
-  min-height: 320px;
-  max-height: 320px;
-}
+/* RISK BOX */
 .risk-box {
   margin-top: 18px;
   padding: 16px;
@@ -323,4 +224,83 @@ footer {
   margin-top: 8px;
   color: #475569;
   font-weight: bold;
+}
+
+/* HISTÓRICO */
+.historico-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.btn-limpar {
+  width: auto;
+  padding: 10px 16px;
+  background: linear-gradient(90deg, #dc3545, #bb2d3b);
+}
+
+.btn-limpar:hover {
+  box-shadow: 0 8px 18px rgba(220, 53, 69, 0.22);
+}
+
+#lista {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+#lista li {
+  background: #f8fafc;
+  margin-bottom: 12px;
+  padding: 14px;
+  border-radius: 12px;
+  border-left: 5px solid #0d6efd;
+  line-height: 1.6;
+  color: #334155;
+}
+
+/* GRÁFICO */
+#grafico {
+  width: 100%;
+  min-height: 320px;
+  max-height: 320px;
+}
+
+/* MAPA */
+#mapa {
+  width: 100%;
+  height: 360px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  color: #64748b;
+  padding: 28px 20px 36px;
+  font-size: 0.95rem;
+}
+
+/* RESPONSIVO */
+@media (max-width: 700px) {
+  .hero h1 {
+    font-size: 2.1rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .historico-topo {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-limpar {
+    width: 100%;
+  }
 }

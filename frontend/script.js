@@ -1,5 +1,69 @@
 let historico = [];
 let graficoTempo = null;
+let mapa = null;
+let camadaMarcadores = null;
+
+function inicializarMapa() {
+  if (mapa) return;
+
+  mapa = L.map("mapa").setView([-29.754994, -51.149445], 10);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "&copy; OpenStreetMap"
+  }).addTo(mapa);
+
+  camadaMarcadores = L.layerGroup().addTo(mapa);
+}
+
+async function buscarCoordenadas(local) {
+  const url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(local)}`;
+
+  const response = await fetch(url, {
+    headers: {
+      "Accept": "application/json"
+    }
+  });
+
+  const data = await response.json();
+
+  if (!data || data.length === 0) {
+    return null;
+  }
+
+  return {
+    lat: parseFloat(data[0].lat),
+    lon: parseFloat(data[0].lon),
+    nome: data[0].display_name
+  };
+}
+
+async function atualizarMapa(origem, destino) {
+  try {
+    inicializarMapa();
+    camadaMarcadores.clearLayers();
+
+    const origemCoords = await buscarCoordenadas(origem);
+    const destinoCoords = await buscarCoordenadas(destino);
+
+    if (!origemCoords || !destinoCoords) {
+      return;
+    }
+
+    const marcadorOrigem = L.marker([origemCoords.lat, origemCoords.lon])
+      .addTo(camadaMarcadores)
+      .bindPopup(`Origem: ${origem}`);
+
+    const marcadorDestino = L.marker([destinoCoords.lat, destinoCoords.lon])
+      .addTo(camadaMarcadores)
+      .bindPopup(`Destino: ${destino}`);
+
+    const grupo = L.featureGroup([marcadorOrigem, marcadorDestino]);
+    mapa.fitBounds(grupo.getBounds(), { padding: [40, 40] });
+  } catch (error) {
+    console.error("Erro ao atualizar mapa:", error);
+  }
+}
 
 async function carregarHistorico() {
   try {
@@ -84,15 +148,9 @@ function gerarChanceLeve(risco) {
 }
 
 function gerarClassificacaoIA(risco) {
-  if (risco >= 75) {
-    return "Cenário crítico";
-  }
-  if (risco >= 50) {
-    return "Cenário de atenção";
-  }
-  if (risco >= 30) {
-    return "Cenário moderado";
-  }
+  if (risco >= 75) return "Cenário crítico";
+  if (risco >= 50) return "Cenário de atenção";
+  if (risco >= 30) return "Cenário moderado";
   return "Cenário favorável";
 }
 
@@ -221,6 +279,7 @@ async function analisar() {
   `;
 
   atualizarMedidorRisco(risco);
+  await atualizarMapa(origem, destino);
 
   try {
     await fetch("http://localhost:3000/api/analises", {
@@ -321,3 +380,4 @@ async function limparHistorico() {
 
 carregarHistorico();
 atualizarMedidorRisco(0);
+inicializarMapa();
