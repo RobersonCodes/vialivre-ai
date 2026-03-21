@@ -1,175 +1,228 @@
-ViaLivre AI 🚦
+# ViaLivre AI 🚦
 
 Aplicação web que utiliza lógica analítica para estimar condições de trânsito e sugerir o melhor horário para sair de casa.
 
 O objetivo é ajudar pessoas a planejarem seus deslocamentos diários considerando:
 
-horário de pico
-condições climáticas
-tipo de transporte
-risco de atraso
-tempo estimado de trajeto
+- horário de pico
+- condições climáticas
+- tipo de transporte
+- risco de atraso
+- tempo estimado de trajeto
 
-O projeto demonstra habilidades de desenvolvimento full stack, organização de código e construção de APIs.
+O projeto demonstra habilidades de desenvolvimento full stack, criação de APIs e organização profissional de código.
 
-Demonstração
+---
+
+# Demonstração
 
 Interface moderna com:
 
-simulação de trajeto
-recomendação inteligente
-histórico de análises
-gráfico de tempo estimado
-medidor visual de risco
-mapa interativo
-Problema
+- simulação de trajeto
+- recomendação inteligente
+- histórico de análises
+- gráfico de tempo estimado
+- medidor visual de risco
+- mapa interativo
+
+---
+
+# Problema
 
 Muitas pessoas enfrentam dificuldades para prever:
 
-quanto tempo levará o trajeto
-se haverá congestionamento
-qual o melhor horário para sair
-impacto do clima no trânsito
-risco de atraso
+- quanto tempo levará o trajeto
+- se haverá congestionamento
+- qual o melhor horário para sair
+- impacto da chuva no trânsito
+- risco de atraso
 
-O ViaLivre AI busca fornecer uma estimativa simples baseada em regras de decisão.
+O ViaLivre AI fornece uma estimativa baseada em regras de decisão e análise de cenário.
 
-Funcionalidades
-Simulação de trajeto
+---
 
-Usuário informa:
+# Funcionalidades
 
-origem
-destino
-horário
-clima
-tipo de transporte
+## Simulação de trajeto
+
+O usuário informa:
+
+- origem
+- destino
+- horário
+- clima
+- tipo de transporte
 
 O sistema calcula:
 
-tempo estimado
-nível de trânsito
-recomendação de saída
-pontuação de risco
-melhor horário sugerido
-Análise inteligente
+- tempo estimado
+- nível de trânsito
+- recomendação de saída
+- pontuação de risco
+- melhor horário sugerido
+
+---
+
+## Análise inteligente
 
 O sistema considera:
 
-horários de pico
-impacto da chuva
-impacto do transporte público
-variação de tempo conforme cenário
-classificação de risco
+- horários de pico
+- impacto da chuva
+- impacto do transporte público
+- variação de tempo conforme cenário
+- classificação de risco
 
-Exemplo:
+Exemplo de análise:
 
-Cenário crítico
-Chance de trânsito leve: 22%
-Melhor horário sugerido: 06:00
+Cenário crítico:
 
-Histórico de análises
+Chance de atraso: 82%  
+Melhor horário sugerido: 06:00  
+Nível de trânsito: intenso  
 
-As últimas análises ficam salvas e exibidas:
+---
 
-origem
-destino
-horário
-clima
-transporte
-tempo estimado
-nível de trânsito
-Visualização gráfica
+## Histórico de análises
 
-Gráfico mostra evolução do tempo estimado ao longo das análises realizadas.
+As últimas análises ficam salvas e exibidas com:
 
-Permite visualizar padrões de variação.
+- origem
+- destino
+- horário
+- clima
+- transporte
+- tempo estimado
+- nível de trânsito
 
-Medidor visual de risco
+---
+
+## Visualização gráfica
+
+O gráfico mostra a evolução do tempo estimado ao longo das análises realizadas.
+
+Permite visualizar padrões de variação do trânsito.
+
+---
+
+## Medidor visual de risco
 
 Barra de risco baseada em pontuação de 0 a 100:
 
-verde → baixo risco
-amarelo → risco moderado
-vermelho → alto risco
-Mapa interativo
+- verde → baixo risco
+- amarelo → risco moderado
+- vermelho → alto risco
 
-Exibe origem e destino no mapa.
+---
 
-Utiliza OpenStreetMap via Leaflet.
+## Mapa interativo
+
+Exibe origem e destino no mapa usando OpenStreetMap via Leaflet.js.
 
 O zoom é ajustado automaticamente para visualizar os pontos.
 
-Tecnologias utilizadas
+---
 
-Frontend
+# Tecnologias utilizadas
 
-HTML
-CSS
-JavaScript
-Chart.js
-Leaflet.js
+## Frontend
 
-Backend
+- HTML
+- CSS
+- JavaScript
+- Chart.js
+- Leaflet.js
 
-Node.js
-Express
+## Backend
 
-Outros
+- Node.js
+- Express
 
-Git
-GitHub
-API REST
-JSON
-Arquitetura do projeto
+## Outros
+
+- Git
+- GitHub
+- API REST
+- JSON
+
+---
+
+# Arquitetura do projeto
+
+
 vialivre-ai
 │
 ├── backend
-│   ├── routes
-│   ├── controllers
-│   ├── services
-│   ├── config
-│   └── server.js
+│ ├── routes
+│ ├── controllers
+│ ├── services
+│ ├── config
+│ └── server.js
 │
 ├── frontend
-│   ├── index.html
-│   ├── style.css
-│   └── script.js
+│ ├── index.html
+│ ├── style.css
+│ └── script.js
 │
 ├── database
-│   └── schema.sql
+│ └── schema.sql
 │
 └── README.md
 
-Como executar o projeto
 
-1. clonar o repositório
+---
+
+# Como executar o projeto
+
+## 1. clonar o repositório
+
 git clone https://github.com/RobersonCodes/vialivre-ai.git
-2. acessar pasta do backend
+
+---
+
+## 2. acessar pasta do backend
+
 cd vialivre-ai/backend
-3. instalar dependências
+
+---
+
+## 3. instalar dependências
+
 npm install
-4. iniciar servidor
+
+---
+
+## 4. iniciar servidor
+
 node server.js
 
 Servidor disponível em:
 
 http://localhost:3000
-5. abrir frontend
+
+---
+
+## 5. abrir frontend
 
 Abra o arquivo:
 
 frontend/index.html
 
-ou utilize extensão Live Server no VS Code.
+ou utilize a extensão Live Server no VS Code.
 
-Endpoints da API
-listar análises
+---
+
+# Endpoints da API
+
+## listar análises
 
 GET
 
 /api/analises
-criar nova análise
+
+---
+
+## criar nova análise
 
 POST
 
@@ -184,33 +237,46 @@ exemplo de body:
   "clima": "chuva",
   "transporte": "onibus"
 }
-limpar histórico
+
+---
+
+## limpar histórico
 
 DELETE
 
 /api/analises
-Objetivo do projeto
+
+---
+
+# Objetivo do projeto
 
 Demonstrar conhecimento em:
 
-lógica de programação
-criação de APIs
-integração frontend e backend
-organização de código
-manipulação de JSON
-consumo de API externa
-visualização de dados
-versionamento com Git
-boas práticas de estruturação
-Melhorias futuras
-integração com API de clima real
-cálculo de rota real
-autenticação de usuários
-dashboard de análises
-previsão baseada em histórico
-deploy completo online
-banco de dados relacional
-Autor
+- lógica de programação
+- criação de APIs
+- integração frontend e backend
+- organização de código
+- manipulação de JSON
+- consumo de API externa
+- visualização de dados
+- versionamento com Git
+- boas práticas de estruturação
+
+---
+
+# Melhorias futuras
+
+- integração com API de clima real
+- cálculo de rota real via API de mapas
+- autenticação de usuários
+- dashboard de análises
+- previsão baseada em histórico
+- deploy completo online
+- banco de dados relacional
+
+---
+
+# Autor
 
 Roberson de Oliveira
 
@@ -218,7 +284,9 @@ Desenvolvedor em formação com foco em backend.
 
 Experiência anterior na área industrial e atualmente em transição para tecnologia.
 
-Status do projeto
+---
+
+# Status do projeto
 
 Em desenvolvimento
 
