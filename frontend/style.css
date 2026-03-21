@@ -5,9 +5,9 @@ margin: 0;
 }
 
 header {
-background: #0d6efd;
+background: linear-gradient(90deg,#0d6efd,#0b5ed7);
 color: white;
-padding: 20px;
+padding: 25px;
 text-align: center;
 }
 
@@ -17,28 +17,54 @@ margin: auto;
 padding: 20px;
 }
 
-.card {
+section {
 background: white;
 padding: 20px;
 margin-bottom: 20px;
-border-radius: 8px;
-box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+border-radius: 10px;
+box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
 input, select, button {
+
 width: 100%;
-padding: 10px;
-margin-top: 10px;
+
+padding: 12px;
+
+margin-top: 8px;
+
 margin-bottom: 15px;
+
+border-radius: 6px;
+
+border: 1px solid #ccc;
+
 }
 
 button {
+
 background: #0d6efd;
+
 color: white;
+
+font-weight: bold;
+
 border: none;
+
 cursor: pointer;
+
+transition: 0.3s;
+
 }
 
 button:hover {
+
 background: #0b5ed7;
+
+}
+
+h2 {
+
+margin-top: 0;
+
 }
