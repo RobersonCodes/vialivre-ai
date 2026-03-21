@@ -1,9 +1,15 @@
 let historico = [];
+let graficoTempo = null;
 
 async function carregarHistorico() {
   try {
     const response = await fetch("http://localhost:3000/api/analises");
     historico = await response.json();
+
+    if (!Array.isArray(historico)) {
+      historico = [];
+    }
+
     mostrarHistorico();
     atualizarEstatisticas();
   } catch (error) {
@@ -28,6 +34,91 @@ function atualizarEstatisticas() {
   trafego.textContent = historico[0].trafego;
 }
 
+function calcularFaixaHorario(hora) {
+  if ((hora >= 7 && hora <= 9) || (hora >= 17 && hora <= 19)) {
+    return "pico";
+  }
+
+  if (
+    (hora >= 6 && hora < 7) ||
+    (hora > 9 && hora <= 10) ||
+    (hora >= 16 && hora < 17) ||
+    (hora > 19 && hora <= 20)
+  ) {
+    return "atencao";
+  }
+
+  return "livre";
+}
+
+function calcularRisco(clima, transporte, faixaHorario) {
+  let risco = 20;
+
+  if (faixaHorario === "pico") {
+    risco += 45;
+  } else if (faixaHorario === "atencao") {
+    risco += 20;
+  }
+
+  if (clima === "chuva") {
+    risco += 20;
+  } else if (clima === "nublado") {
+    risco += 8;
+  }
+
+  if (transporte === "onibus") {
+    risco += 10;
+  } else if (transporte === "moto") {
+    risco -= 8;
+  }
+
+  if (risco < 0) risco = 0;
+  if (risco > 100) risco = 100;
+
+  return risco;
+}
+
+function gerarChanceLeve(risco) {
+  const chance = 100 - risco;
+  return chance < 5 ? 5 : chance;
+}
+
+function gerarClassificacaoIA(risco) {
+  if (risco >= 75) {
+    return "Cenário crítico";
+  }
+
+  if (risco >= 50) {
+    return "Cenário de atenção";
+  }
+
+  if (risco >= 30) {
+    return "Cenário moderado";
+  }
+
+  return "Cenário favorável";
+}
+
+function sugerirMelhorHorario(hora, faixaHorario, clima) {
+  if (faixaHorario === "pico" && clima === "chuva") {
+    return `${String((hora - 1 + 24) % 24).padStart(2, "0")}:00`;
+  }
+
+  if (faixaHorario === "pico") {
+    return `${String((hora - 1 + 24) % 24).padStart(2, "0")}:30`;
+  }
+
+  if (faixaHorario === "atencao" && clima === "chuva") {
+    return `${String((hora - 1 + 24) % 24).padStart(2, "0")}:45`;
+  }
+
+  if (faixaHorario === "atencao") {
+    return `${String((hora - 1 + 24) % 24).padStart(2, "0")}:50`;
+  }
+
+  return "Horário atual adequado";
+}
+
 async function analisar() {
   const origem = document.getElementById("origem").value.trim();
   const destino = document.getElementById("destino").value.trim();
@@ -47,15 +138,12 @@ async function analisar() {
   let trafego = "";
   let mensagem = "";
 
-  if ((hora >= 7 && hora <= 9) || (hora >= 17 && hora <= 19)) {
+  const faixaHorario = calcularFaixaHorario(hora);
+
+  if (faixaHorario === "pico") {
     tempoBase += 25;
     trafego = "intenso";
-  } else if (
-    (hora >= 6 && hora < 7) ||
-    (hora > 9 && hora <= 10) ||
-    (hora >= 16 && hora < 17) ||
-    (hora > 19 && hora <= 20)
-  ) {
+  } else if (faixaHorario === "atencao") {
     tempoBase += 10;
     trafego = "moderado";
   } else {
@@ -92,6 +180,11 @@ async function analisar() {
     mensagem = "Trânsito tranquilo. Você pode sair no horário planejado.";
   }
 
+  const risco = calcularRisco(clima, transporte, faixaHorario);
+  const chanceLeve = gerarChanceLeve(risco);
+  const classificacaoIA = gerarClassificacaoIA(risco);
+  const melhorHorario = sugerirMelhorHorario(hora, faixaHorario, clima);
+
   resultado.className = "resultado " + trafego;
   resultado.innerHTML = `
     <strong>📍 Origem:</strong> ${origem}<br>
@@ -100,8 +193,12 @@ async function analisar() {
     <strong>🌤️ Clima:</strong> ${clima}<br>
     <strong>🚘 Transporte:</strong> ${transporte}<br>
     <strong>🚦 Nível de trânsito:</strong> ${trafego}<br>
-    <strong>🕒 Tempo estimado:</strong> ${tempoBase} minutos<br><br>
-    <strong>✅ Recomendação:</strong> ${mensagem}
+    <strong>🕒 Tempo estimado:</strong> ${tempoBase} minutos<br>
+    <strong>📉 Pontuação de risco:</strong> ${risco}/100<br>
+    <strong>🧠 Classificação inteligente:</strong> ${classificacaoIA}<br>
+    <strong>✅ Chance de trânsito leve:</strong> ${chanceLeve}%<br>
+    <strong>⏳ Melhor horário sugerido:</strong> ${melhorHorario}<br><br>
+    <strong>📢 Recomendação:</strong> ${mensagem}
   `;
 
   try {
@@ -118,7 +215,11 @@ async function analisar() {
         transporte,
         tempoBase,
         trafego,
-        mensagem
+        mensagem,
+        risco,
+        chanceLeve,
+        classificacaoIA,
+        melhorHorario
       })
     });
 
@@ -134,6 +235,7 @@ function mostrarHistorico() {
 
   if (historico.length === 0) {
     lista.innerHTML = "<li>Nenhuma análise realizada ainda.</li>";
+    gerarGrafico();
     return;
   }
 
@@ -145,6 +247,41 @@ function mostrarHistorico() {
         🕒 Tempo: ${item.tempoBase} min | 🚦 Tráfego: ${item.trafego}
       </li>
     `;
+  });
+
+  gerarGrafico();
+}
+
+function gerarGrafico() {
+  const canvas = document.getElementById("grafico");
+  if (!canvas || typeof Chart === "undefined") return;
+
+  const ctx = canvas.getContext("2d");
+  const dados = historico.map(item => item.tempoBase).reverse();
+  const labels = historico.map((_, i) => `Análise ${i + 1}`).reverse();
+
+  if (graficoTempo) {
+    graficoTempo.destroy();
+  }
+
+  graficoTempo = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Tempo estimado (min)",
+          data: dados,
+          borderWidth: 2,
+          tension: 0.3,
+          fill: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
   });
 }
 

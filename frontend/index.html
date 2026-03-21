@@ -1,253 +1,93 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ViaLivre AI</title>
-
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
-
   <header class="hero">
     <div class="container">
-
-      <span class="badge-top">
-        🚦 Mobilidade Inteligente
-      </span>
-
-      <h1>
-        ViaLivre AI
-      </h1>
-
-      <p>
-        Planeje o melhor horário para sair com base no trânsito, clima e transporte.
-      </p>
-
+      <span class="badge-top">🚦 Mobilidade Inteligente</span>
+      <h1>ViaLivre AI</h1>
+      <p>Planeje o melhor horário para sair com base no trânsito, clima e transporte.</p>
     </div>
   </header>
 
   <main class="container">
-
-
-    <!-- CARDS DE ESTATÍSTICAS -->
-
     <section class="stats-grid">
-
       <div class="stat-card">
-
-        <span class="stat-label">
-          Total de análises
-        </span>
-
-        <strong id="stat-total">
-          0
-        </strong>
-
+        <span class="stat-label">Total de análises</span>
+        <strong id="stat-total">0</strong>
       </div>
 
-
       <div class="stat-card">
-
-        <span class="stat-label">
-          Último tempo estimado
-        </span>
-
-        <strong id="stat-tempo">
-          --
-        </strong>
-
+        <span class="stat-label">Último tempo estimado</span>
+        <strong id="stat-tempo">--</strong>
       </div>
 
-
       <div class="stat-card">
-
-        <span class="stat-label">
-          Nível atual
-        </span>
-
-        <strong id="stat-trafego">
-          --
-        </strong>
-
+        <span class="stat-label">Nível atual</span>
+        <strong id="stat-trafego">--</strong>
       </div>
-
     </section>
 
-
-
-    <!-- FORMULÁRIO -->
-
     <section class="card">
+      <h2>🧭 Simular trajeto</h2>
 
-      <h2>
-        🧭 Simular trajeto
-      </h2>
+      <label for="origem">Origem</label>
+      <input type="text" id="origem" placeholder="Ex: São Leopoldo">
 
+      <label for="destino">Destino</label>
+      <input type="text" id="destino" placeholder="Ex: Porto Alegre">
 
-      <label>
-        Origem
-      </label>
+      <label for="horario">Horário de saída</label>
+      <input type="time" id="horario">
 
-      <input
-        type="text"
-        id="origem"
-        placeholder="Ex: São Leopoldo"
-      >
-
-
-
-      <label>
-        Destino
-      </label>
-
-      <input
-        type="text"
-        id="destino"
-        placeholder="Ex: Porto Alegre"
-      >
-
-
-
-      <label>
-        Horário de saída
-      </label>
-
-      <input
-        type="time"
-        id="horario"
-      >
-
-
-
-      <label>
-        Clima
-      </label>
-
+      <label for="clima">Clima</label>
       <select id="clima">
-
-        <option value="limpo">
-          ☀️ Limpo
-        </option>
-
-        <option value="nublado">
-          ☁️ Nublado
-        </option>
-
-        <option value="chuva">
-          🌧️ Chuva
-        </option>
-
+        <option value="limpo">☀️ Limpo</option>
+        <option value="nublado">☁️ Nublado</option>
+        <option value="chuva">🌧️ Chuva</option>
       </select>
 
-
-
-      <label>
-        Tipo de transporte
-      </label>
-
+      <label for="transporte">Tipo de transporte</label>
       <select id="transporte">
-
-        <option value="carro">
-          🚗 Carro
-        </option>
-
-        <option value="moto">
-          🏍️ Moto
-        </option>
-
-        <option value="onibus">
-          🚌 Ônibus
-        </option>
-
+        <option value="carro">🚗 Carro</option>
+        <option value="moto">🏍️ Moto</option>
+        <option value="onibus">🚌 Ônibus</option>
       </select>
 
-
-
-      <button onclick="analisar()">
-
-        Analisar trajeto
-
-      </button>
-
+      <button onclick="analisar()">Analisar trajeto</button>
     </section>
 
-
-
-    <!-- RESULTADO -->
-
     <section class="card">
-
-      <h2>
-        📊 Resultado da análise
-      </h2>
-
-      <div
-        id="resultado"
-        class="resultado neutro"
-      >
-
+      <h2>📊 Resultado da análise</h2>
+      <div id="resultado" class="resultado neutro">
         A recomendação aparecerá aqui.
-
       </div>
-
     </section>
-
-
-
-    <!-- HISTÓRICO -->
 
     <section class="card">
-
       <div class="historico-topo">
-
-        <h2>
-          🕘 Histórico
-        </h2>
-
-
-        <button
-          class="btn-limpar"
-          onclick="limparHistorico()"
-        >
-
-          Limpar histórico
-
-        </button>
-
+        <h2>🕘 Histórico</h2>
+        <button class="btn-limpar" onclick="limparHistorico()">Limpar histórico</button>
       </div>
-
-
-
-      <ul id="lista">
-
-      </ul>
-
+      <ul id="lista"></ul>
     </section>
 
-
+    <section class="card">
+      <h2>📈 Histórico de tempo de trajeto</h2>
+      <canvas id="grafico"></canvas>
+    </section>
   </main>
 
-
-
   <footer>
-
-    <p>
-
-      Desenvolvido por Roberson de Oliveira
-      • Projeto de portfólio
-
-    </p>
-
+    <p>Desenvolvido por Roberson de Oliveira • Projeto de portfólio</p>
   </footer>
 
-
-
   <script src="script.js"></script>
-
-
 </body>
-
 </html>
