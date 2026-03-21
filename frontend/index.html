@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ViaLivre AI</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+<h1>ViaLivre AI</h1>
+<p>Planeje melhor seu horário de saída</p>
+</header>
+
+<main>
+
+<section class="card">
+
+<h2>Simular trajeto</h2>
+
+<label>Origem</label>
+<input type="text" placeholder="Ex: Centro">
+
+<label>Destino</label>
+<input type="text" placeholder="Ex: Trabalho">
+
+<label>Horário de saída</label>
+<input type="time">
+
+<label>Nível de trânsito</label>
+<select id="trafego">
+<option value="leve">Leve</option>
+<option value="moderado">Moderado</option>
+<option value="intenso">Intenso</option>
+</select>
+
+<button onclick="analisar()">Analisar trajeto</button>
+
+</section>
+
+<section class="card">
+
+<h2>Recomendação</h2>
+
+<p id="resultado">
+Informe os dados para receber uma recomendação.
+</p>
+
+</section>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>
