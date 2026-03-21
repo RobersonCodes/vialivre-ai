@@ -87,15 +87,12 @@ function gerarClassificacaoIA(risco) {
   if (risco >= 75) {
     return "Cenário crítico";
   }
-
   if (risco >= 50) {
     return "Cenário de atenção";
   }
-
   if (risco >= 30) {
     return "Cenário moderado";
   }
-
   return "Cenário favorável";
 }
 
@@ -117,6 +114,28 @@ function sugerirMelhorHorario(hora, faixaHorario, clima) {
   }
 
   return "Horário atual adequado";
+}
+
+function atualizarMedidorRisco(risco) {
+  const fill = document.getElementById("risk-fill");
+  const label = document.getElementById("risk-label");
+  const percent = document.getElementById("risk-percent");
+
+  fill.style.width = `${risco}%`;
+  fill.className = "risk-fill";
+
+  if (risco >= 75) {
+    fill.classList.add("alto");
+    label.textContent = "Alto";
+  } else if (risco >= 40) {
+    fill.classList.add("medio");
+    label.textContent = "Médio";
+  } else {
+    fill.classList.add("baixo");
+    label.textContent = "Baixo";
+  }
+
+  percent.textContent = `${risco}%`;
 }
 
 async function analisar() {
@@ -201,6 +220,8 @@ async function analisar() {
     <strong>📢 Recomendação:</strong> ${mensagem}
   `;
 
+  atualizarMedidorRisco(risco);
+
   try {
     await fetch("http://localhost:3000/api/analises", {
       method: "POST",
@@ -267,7 +288,7 @@ function gerarGrafico() {
   graficoTempo = new Chart(ctx, {
     type: "line",
     data: {
-      labels: labels,
+      labels,
       datasets: [
         {
           label: "Tempo estimado (min)",
@@ -292,9 +313,11 @@ async function limparHistorico() {
     });
 
     await carregarHistorico();
+    atualizarMedidorRisco(0);
   } catch (error) {
     console.error("Erro ao limpar histórico:", error);
   }
 }
 
 carregarHistorico();
+atualizarMedidorRisco(0);

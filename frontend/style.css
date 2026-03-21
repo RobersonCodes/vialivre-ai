@@ -273,3 +273,54 @@ footer {
   min-height: 320px;
   max-height: 320px;
 }
+.risk-box {
+  margin-top: 18px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.risk-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #334155;
+}
+
+.risk-bar {
+  width: 100%;
+  height: 16px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.risk-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+  background: #16a34a;
+}
+
+.risk-fill.baixo {
+  background: #16a34a;
+}
+
+.risk-fill.medio {
+  background: #f59e0b;
+}
+
+.risk-fill.alto {
+  background: #dc2626;
+}
+
+#risk-percent {
+  display: inline-block;
+  margin-top: 8px;
+  color: #475569;
+  font-weight: bold;
+}
