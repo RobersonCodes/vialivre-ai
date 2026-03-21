@@ -1,7 +1,14 @@
-let historico = JSON.parse(localStorage.getItem("historicoTrajetos")) || [];
+let historico = [];
 
-function salvarHistorico() {
-  localStorage.setItem("historicoTrajetos", JSON.stringify(historico));
+async function carregarHistorico() {
+  try {
+    const response = await fetch("http://localhost:3000/api/analises");
+    historico = await response.json();
+    mostrarHistorico();
+    atualizarEstatisticas();
+  } catch (error) {
+    console.error("Erro ao carregar histórico:", error);
+  }
 }
 
 function atualizarEstatisticas() {
@@ -21,7 +28,7 @@ function atualizarEstatisticas() {
   trafego.textContent = historico[0].trafego;
 }
 
-function analisar() {
+async function analisar() {
   const origem = document.getElementById("origem").value.trim();
   const destino = document.getElementById("destino").value.trim();
   const horario = document.getElementById("horario").value;
@@ -97,23 +104,28 @@ function analisar() {
     <strong>✅ Recomendação:</strong> ${mensagem}
   `;
 
-  historico.unshift({
-    origem,
-    destino,
-    horario,
-    clima,
-    transporte,
-    tempoBase,
-    trafego
-  });
+  try {
+    await fetch("http://localhost:3000/api/analises", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        origem,
+        destino,
+        horario,
+        clima,
+        transporte,
+        tempoBase,
+        trafego,
+        mensagem
+      })
+    });
 
-  if (historico.length > 5) {
-    historico.pop();
+    await carregarHistorico();
+  } catch (error) {
+    console.error("Erro ao salvar análise:", error);
   }
-
-  salvarHistorico();
-  mostrarHistorico();
-  atualizarEstatisticas();
 }
 
 function mostrarHistorico() {
@@ -136,12 +148,16 @@ function mostrarHistorico() {
   });
 }
 
-function limparHistorico() {
-  historico = [];
-  localStorage.removeItem("historicoTrajetos");
-  mostrarHistorico();
-  atualizarEstatisticas();
+async function limparHistorico() {
+  try {
+    await fetch("http://localhost:3000/api/analises", {
+      method: "DELETE"
+    });
+
+    await carregarHistorico();
+  } catch (error) {
+    console.error("Erro ao limpar histórico:", error);
+  }
 }
 
-mostrarHistorico();
-atualizarEstatisticas();
+carregarHistorico();
