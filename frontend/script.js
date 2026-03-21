@@ -3,10 +3,11 @@ function analisar() {
   let destino = document.getElementById("destino").value;
   let horario = document.getElementById("horario").value;
   let clima = document.getElementById("clima").value;
+  let resultado = document.getElementById("resultado");
 
   if (!origem || !destino || !horario) {
-    document.getElementById("resultado").innerText =
-      "Preencha origem, destino e horário para fazer a análise.";
+    resultado.className = "resultado neutro";
+    resultado.innerHTML = "Preencha origem, destino e horário para fazer a análise.";
     return;
   }
 
@@ -18,7 +19,12 @@ function analisar() {
   if ((hora >= 7 && hora <= 9) || (hora >= 17 && hora <= 19)) {
     tempoBase += 25;
     trafego = "intenso";
-  } else if ((hora >= 6 && hora < 7) || (hora > 9 && hora <= 10) || (hora >= 16 && hora < 17) || (hora > 19 && hora <= 20)) {
+  } else if (
+    (hora >= 6 && hora < 7) ||
+    (hora > 9 && hora <= 10) ||
+    (hora >= 16 && hora < 17) ||
+    (hora > 19 && hora <= 20)
+  ) {
     tempoBase += 10;
     trafego = "moderado";
   } else {
@@ -43,7 +49,8 @@ function analisar() {
     mensagem = "Trânsito tranquilo. Você pode sair no horário planejado.";
   }
 
-  document.getElementById("resultado").innerHTML = `
+  resultado.className = "resultado " + trafego;
+  resultado.innerHTML = `
     <strong>Origem:</strong> ${origem} <br>
     <strong>Destino:</strong> ${destino} <br>
     <strong>Horário:</strong> ${horario} <br>
