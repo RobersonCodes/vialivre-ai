@@ -1,0 +1,4 @@
+node_modules
+.env
+backend/database/vialivre.db
+.DS_Store
