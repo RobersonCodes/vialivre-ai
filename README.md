@@ -10,7 +10,7 @@ O sistema considera fatores como horário, clima e tipo de transporte para estim
 
 O **ViaLivre AI** foi criado para resolver um problema comum da rotina urbana: a dificuldade de prever o melhor momento para sair de casa e evitar atrasos.
 
-A aplicação utiliza uma lógica analítica baseada em regras de decisão para gerar recomendações inteligentes a partir de variáveis informadas pelo usuário, como:
+A aplicação utiliza uma lógica baseada em regras de decisão para gerar recomendações inteligentes a partir de variáveis informadas pelo usuário, como:
 
 - origem
 - destino
