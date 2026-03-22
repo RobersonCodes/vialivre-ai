@@ -1,5 +1,8 @@
 const analysisService = require("../services/analysisService");
 
+/* =========================
+   UTILITÁRIOS / VALIDAÇÃO
+========================= */
 function validateInput(data) {
   const requiredFields = [
     "origem",
@@ -21,6 +24,10 @@ function validateInput(data) {
   return { valid: true };
 }
 
+/* =========================
+   HANDLERS DA API
+========================= */
+
 async function getAnalyses(req, res) {
   try {
     const analyses = await analysisService.getAllAnalyses();
@@ -32,7 +39,6 @@ async function getAnalyses(req, res) {
     });
   } catch (error) {
     console.error("Erro ao buscar análises:", error);
-
     res.status(500).json({
       success: false,
       message: "Erro ao buscar análises."
@@ -60,7 +66,6 @@ async function createAnalysis(req, res) {
     });
   } catch (error) {
     console.error("Erro ao criar análise:", error);
-
     res.status(500).json({
       success: false,
       message: "Erro ao salvar análise."
@@ -79,7 +84,6 @@ async function clearAnalyses(req, res) {
     });
   } catch (error) {
     console.error("Erro ao limpar histórico:", error);
-
     res.status(500).json({
       success: false,
       message: "Erro ao limpar histórico."
@@ -97,7 +101,6 @@ async function getStatistics(req, res) {
     });
   } catch (error) {
     console.error("Erro ao buscar estatísticas:", error);
-
     res.status(500).json({
       success: false,
       message: "Erro ao buscar estatísticas."
