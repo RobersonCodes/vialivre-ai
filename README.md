@@ -93,9 +93,6 @@ A proposta do projeto é demonstrar como tecnologia pode ser utilizada para melh
 
 ---
 
-### Comparação de modais de transporte
-
-![Transportes](assets/images/preview-transportes.png)
 
 # Arquitetura do projeto
 
