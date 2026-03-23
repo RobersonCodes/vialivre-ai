@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = "http://localhost:3000/api/v1";
 
 let historico = [];
 let graficoTempo = null;
@@ -307,10 +307,12 @@ async function carregarHistorico() {
 
     const data = await response.json();
 
-    if (Array.isArray(data)) {
-      historico = data;
-    } else if (data && Array.isArray(data.data)) {
+    if (data?.data?.items && Array.isArray(data.data.items)) {
+      historico = data.data.items;
+    } else if (data?.data && Array.isArray(data.data)) {
       historico = data.data;
+    } else if (Array.isArray(data)) {
+      historico = data;
     } else {
       historico = [];
     }
@@ -322,6 +324,27 @@ async function carregarHistorico() {
     historico = [];
     mostrarHistorico();
     atualizarEstatisticas();
+  }
+}
+
+async function carregarStats() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/analises/stats`);
+
+    if (!response.ok) {
+      return;
+    }
+
+    const data = await response.json();
+
+    if (!data?.data) return;
+
+    const media = document.getElementById("stat-media");
+    if (media && typeof data.data.riscoMedio === "number") {
+      media.textContent = `${data.data.riscoMedio}%`;
+    }
+  } catch (error) {
+    console.error("Erro ao carregar estatísticas:", error);
   }
 }
 
@@ -733,7 +756,7 @@ async function analisar() {
     gerarComparacaoHorarios(hora, clima, transporte, rota.duracaoSegundos);
 
     try {
-      await fetch(`${API_BASE_URL}/analises`, {
+      const salvarResponse = await fetch(`${API_BASE_URL}/analises`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -755,7 +778,12 @@ async function analisar() {
         })
       });
 
+      if (!salvarResponse.ok) {
+        throw new Error("Erro ao salvar análise.");
+      }
+
       await carregarHistorico();
+      await carregarStats();
     } catch (error) {
       console.error("Erro ao salvar análise:", error);
     }
@@ -845,11 +873,16 @@ function gerarGrafico() {
 
 async function limparHistorico() {
   try {
-    await fetch(`${API_BASE_URL}/analises`, {
+    const response = await fetch(`${API_BASE_URL}/analises`, {
       method: "DELETE"
     });
 
+    if (!response.ok) {
+      throw new Error("Erro ao limpar histórico.");
+    }
+
     await carregarHistorico();
+    await carregarStats();
     atualizarMedidorRisco(0);
     mostrarStatus("Histórico limpo com sucesso.", "sucesso");
 
@@ -864,6 +897,14 @@ async function limparHistorico() {
       resultado.className = "resultado neutro";
       resultado.innerHTML = "A recomendação aparecerá aqui.";
     }
+
+    const statTempo = document.getElementById("stat-tempo");
+    const statTrafego = document.getElementById("stat-trafego");
+    const statMedia = document.getElementById("stat-media");
+
+    if (statTempo) statTempo.textContent = "--";
+    if (statTrafego) statTrafego.textContent = "--";
+    if (statMedia) statMedia.textContent = "--";
 
     if (camadaRota) camadaRota.clearLayers();
     if (camadaMarcadores) camadaMarcadores.clearLayers();
@@ -887,6 +928,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   carregarHistorico();
+  carregarStats();
   atualizarMedidorRisco(0);
   inicializarMapa();
 });

@@ -1,130 +1,100 @@
 # ViaLivre AI 🚦
 
-Aplicação web full stack desenvolvida para simular condições de trânsito e recomendar o melhor horário para sair de casa com base em análise de cenário.
+Aplicação web full stack desenvolvida para simular condições de trânsito e recomendar o melhor horário para sair com base em rota, clima, transporte e risco estimado de atraso.
 
-O sistema considera fatores como horário, clima e tipo de transporte para estimar tempo de trajeto, nível de trânsito e risco de atraso, ajudando o usuário a planejar melhor seus deslocamentos diários.
-
----
-
-## Visão geral
-
-O **ViaLivre AI** foi criado para resolver um problema comum da rotina urbana: a dificuldade de prever o melhor momento para sair de casa e evitar atrasos.
-
-A aplicação utiliza uma lógica baseada em regras de decisão para gerar recomendações inteligentes a partir de variáveis informadas pelo usuário, como:
-
-- origem
-- destino
-- horário
-- clima
-- meio de transporte
-
-Com isso, o sistema apresenta uma estimativa prática e visual do cenário do trajeto.
+O projeto foi criado com foco em mobilidade inteligente e demonstra integração entre frontend, backend, API REST, banco de dados, mapa interativo, gráfico de histórico e consumo de APIs externas.
 
 ---
 
-## Demonstração
+## Preview
 
-A interface foi planejada para oferecer uma experiência moderna, intuitiva e visual, incluindo:
+O sistema oferece uma interface moderna e intuitiva para:
 
-- simulação de trajeto
-- recomendação inteligente de saída
-- histórico das análises realizadas
-- gráfico de tempo estimado
-- indicador visual de risco
-- mapa interativo com origem e destino
+- simular trajetos
+- gerar recomendações inteligentes
+- visualizar nível de risco
+- acompanhar histórico das análises
+- consultar gráfico de tempo estimado
+- visualizar origem e destino no mapa
 
 ---
 
 ## Problema resolvido
 
-No dia a dia, muitas pessoas enfrentam incertezas como:
+Na rotina urbana, muitas pessoas saem de casa sem saber:
 
 - quanto tempo o trajeto realmente vai levar
 - se haverá trânsito intenso
+- se o clima vai piorar a situação
 - qual o melhor horário para sair
-- como a chuva pode impactar o deslocamento
 - qual o risco de chegar atrasado
 
-O **ViaLivre AI** busca reduzir essa incerteza por meio de uma análise automatizada de cenário, transformando informações simples em uma recomendação objetiva e útil.
+O ViaLivre AI reduz essa incerteza ao transformar dados simples em uma recomendação prática e objetiva.
 
 ---
 
 ## Funcionalidades
 
-### Simulação de trajeto
-
+### Simulação inteligente de trajeto
 O usuário informa:
 
 - origem
 - destino
 - horário
 - clima
-- tipo de transporte
+- transporte
 
-Com base nesses dados, o sistema calcula:
+A aplicação gera:
 
-- tempo estimado de trajeto
+- distância estimada da rota
+- tempo previsto de deslocamento
 - nível de trânsito
-- recomendação de saída
 - pontuação de risco
+- chance de trânsito leve
 - melhor horário sugerido
-
----
-
-### Análise inteligente
-
-A lógica da aplicação considera fatores como:
-
-- horários de pico
-- impacto da chuva no trânsito
-- influência do transporte público no tempo de trajeto
-- variação de cenário conforme horário e condições
-- classificação de risco de atraso
-
-#### Exemplo de análise
-
-**Cenário crítico**
-- Chance de atraso: **82%**
-- Melhor horário sugerido: **06:00**
-- Nível de trânsito: **intenso**
-
----
+- mensagem de recomendação
 
 ### Histórico de análises
+As análises são registradas e exibidas em lista com:
 
-As análises realizadas ficam registradas e podem ser consultadas rapidamente, exibindo:
-
-- origem
-- destino
+- origem e destino
 - horário
 - clima
 - transporte
 - tempo estimado
+- risco
 - nível de trânsito
 
----
-
-### Visualização gráfica
-
-A aplicação exibe um gráfico com a evolução do tempo estimado ao longo das análises realizadas, permitindo identificar padrões e comparar cenários de deslocamento.
-
----
+### Gráfico de tempo estimado
+O sistema apresenta um gráfico com a variação do tempo previsto ao longo das análises realizadas.
 
 ### Medidor visual de risco
+A aplicação exibe um medidor com escala de risco de 0 a 100:
 
-O sistema apresenta uma barra de risco com pontuação de **0 a 100**, facilitando a leitura da análise:
+- verde → baixo risco
+- amarelo → risco moderado
+- vermelho → alto risco
 
-- **verde** → baixo risco
-- **amarelo** → risco moderado
-- **vermelho** → alto risco
+### Comparação de horários
+O sistema compara horários próximos ao informado e sugere a opção mais favorável.
+
+### Mapa interativo
+A aplicação usa Leaflet com OpenStreetMap para mostrar origem, destino e rota estimada no mapa.
+
+### Integração com clima
+A aplicação pode utilizar clima manual e também consultar previsão meteorológica e condições atuais.
 
 ---
 
-### Mapa interativo
+## Diferenciais do projeto
 
-A aplicação utiliza **OpenStreetMap** com **Leaflet.js** para exibir visualmente a origem e o destino informados pelo usuário.
-
-O zoom é ajustado automaticamente para melhorar a visualização dos pontos no mapa.
+- análise de risco baseada em regras de negócio
+- integração com APIs externas de rota e clima
+- persistência em banco SQLite
+- frontend dinâmico com atualização em tempo real
+- visualização gráfica e geográfica
+- arquitetura backend organizada em camadas
+- projeto orientado a portfólio profissional
 
 ---
 
@@ -142,11 +112,16 @@ O zoom é ajustado automaticamente para melhorar a visualização dos pontos no 
 - Express
 - SQLite
 
-### Outros recursos
-- API REST
+### APIs e recursos externos
+- OpenStreetMap / Nominatim
+- OSRM
+- Open-Meteo
+
+### Outros
 - JSON
 - Git
 - GitHub
+- API REST
 
 ---
 
@@ -157,10 +132,13 @@ vialivre-ai
 │
 ├── backend
 │   ├── controllers
-│   ├── database
-│   ├── models
-│   ├── routes
 │   ├── services
+│   ├── repositories
+│   ├── routes
+│   ├── middlewares
+│   ├── database
+│   ├── utils
+│   ├── app.js
 │   └── server.js
 │
 ├── frontend
@@ -170,10 +148,23 @@ vialivre-ai
 │
 ├── .gitignore
 └── README.md
+
+Padrão de arquitetura
+
+O backend segue separação por responsabilidades:
+
+controllers → recebem requisições e devolvem respostas
+services → aplicam regras de negócio
+repositories → acessam o banco de dados
+middlewares → validação e tratamento de erros
+database → conexão e inicialização do SQLite
+
+Essa estrutura melhora manutenção, legibilidade e escalabilidade do projeto.
+
 Como executar o projeto
 1. Clonar o repositório
 git clone https://github.com/RobersonCodes/vialivre-ai.git
-2. Acessar a pasta do backend
+2. Entrar na pasta do backend
 cd vialivre-ai/backend
 3. Instalar as dependências
 npm install
@@ -192,11 +183,13 @@ frontend/index.html
 ou utilize a extensão Live Server no VS Code.
 
 Endpoints da API
-Listar análises
-GET /api/analises
-Criar nova análise
-POST /api/analises
-Exemplo de body
+Método	Endpoint	Descrição
+GET	/api/v1/analises	Lista análises
+POST	/api/v1/analises	Cria nova análise
+DELETE	/api/v1/analises	Limpa histórico
+GET	/api/v1/analises/stats	Retorna estatísticas
+Exemplo de requisição
+POST /api/v1/analises
 {
   "origem": "São Leopoldo",
   "destino": "Porto Alegre",
@@ -204,42 +197,61 @@ Exemplo de body
   "clima": "chuva",
   "transporte": "onibus"
 }
-Limpar histórico
-DELETE /api/analises
+Exemplo de resposta
+{
+  "success": true,
+  "message": "Análise criada com sucesso.",
+  "data": {
+    "origem": "São Leopoldo",
+    "destino": "Porto Alegre",
+    "horario": "08:00",
+    "clima": "chuva",
+    "transporte": "onibus",
+    "tempoBase": 55,
+    "trafego": "intenso",
+    "risco": 82,
+    "chanceLeve": 18,
+    "classificacaoIA": "Cenário crítico",
+    "melhorHorario": "06:30"
+  }
+}
 Objetivo do projeto
 
 Este projeto foi desenvolvido para demonstrar conhecimentos em:
 
 lógica de programação
 desenvolvimento full stack
+arquitetura backend em camadas
 criação e consumo de APIs
-integração entre frontend e backend
-organização profissional de código
 manipulação de dados em JSON
-visualização de informações em gráficos
 integração com mapas
+integração com clima
+visualização de dados em gráficos
+persistência em banco de dados
+organização profissional de código
 versionamento com Git e GitHub
-boas práticas de estruturação de projetos
-Melhorias futuras
+Roadmap técnico
 
-Evoluções planejadas para as próximas versões:
+Próximas evoluções planejadas:
 
-integração com API de clima em tempo real
-cálculo de rota real com API de mapas
 autenticação de usuários
-dashboard com métricas de uso
-previsões baseadas em histórico
-persistência em banco de dados relacional
+histórico por usuário
 deploy completo da aplicação
+dashboard com métricas avançadas
+exportação de histórico
+integração com banco relacional
+previsões mais sofisticadas com IA ou machine learning
+melhoria na precisão da recomendação com mais variáveis
 Autor
 
 Roberson de Oliveira
-Desenvolvedor em formação com foco em backend.
 
-Profissional em transição de carreira, com experiência anterior na área industrial e dedicação ao desenvolvimento de projetos práticos para fortalecimento do portfólio em tecnologia.
+Desenvolvedor em formação com foco em backend, APIs REST e projetos práticos para portfólio.
+
+Profissional em transição de carreira, com experiência anterior na área industrial e dedicação ao desenvolvimento de soluções reais para fortalecer sua trajetória em tecnologia.
 
 Status do projeto
 
 Em desenvolvimento 🚧
 
-Projeto em evolução contínua, com foco em aprendizado prático, melhoria de arquitetura e fortalecimento de portfólio profissional.
+Projeto em evolução contínua, com foco em aprendizado prático, arquitetura profissional e fortalecimento de portfólio.

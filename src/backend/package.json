@@ -1,0 +1,25 @@
+{
+  "name": "vialivre-ai-backend",
+  "version": "1.0.0",
+  "description": "API REST para simulação de trânsito inteligente",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "api",
+    "sqlite",
+    "traffic",
+    "ai"
+  ],
+  "author": "Roberson de Oliveira",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.0.0",
+    "sqlite3": "^5.1.7"
+  }
+}
