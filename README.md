@@ -71,9 +71,6 @@ para gerar recomendações inteligentes.
 ## 🖼️ Preview da aplicação
 
 ### Página inicial
-![Hero](./assets/images/banner.png)
-
----
 
 ![Hero](./assets/images/preview-hero.png)
 
@@ -106,7 +103,6 @@ para gerar recomendações inteligentes.
 ### Comparação de modais de transporte
 
 ![Transportes](./assets/images/preview-transportes.png)
----
 
 ## ⚙️ Como funciona
 
