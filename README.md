@@ -1,8 +1,8 @@
 # 🚦 ViaLivre AI
 
-Sistema inteligente de previsão de mobilidade urbana utilizando **Inteligência Artificial**, análise de rota e dados climáticos para recomendar o melhor horário de deslocamento.
+Sistema inteligente de previsão de mobilidade urbana utilizando **Inteligência Artificial**, análise de rota, clima e GPS para recomendar o melhor horário de deslocamento.
 
-O projeto combina **backend Node.js**, **microserviço de IA em Python**, **frontend moderno** e integração com APIs externas para gerar análises de risco de atraso em tempo real.
+O projeto combina **backend Node.js**, **frontend moderno com mapa interativo**, **integração com APIs externas** e **geolocalização em tempo real**.
 
 ---
 
@@ -14,56 +14,57 @@ O **ViaLivre AI** analisa:
 - previsão do clima
 - horário do deslocamento
 - tipo de transporte
-- padrão histórico de trânsito
+- padrão estimado de trânsito
+- localização atual via GPS
 
-Com base nesses dados, a IA calcula:
+Com base nesses dados, o sistema calcula:
 
 - risco de atraso
 - tempo estimado
 - melhor horário de saída
 - nível de trânsito esperado
+- recomendação inteligente de mobilidade
 
 ---
 
 ## ✨ Funcionalidades
 
 ✔️ Simulação de trajeto com IA  
+✔️ GPS como origem automática  
+✔️ Navegação com Google Maps  
 ✔️ Previsão de risco de atraso  
-✔️ Integração com mapa interativo  
-✔️ Análise baseada em clima real  
+✔️ Mapa interativo em tempo real  
+✔️ Análise baseada em clima  
+✔️ Comparação de horários  
+✔️ Comparação de transportes  
 ✔️ Histórico de análises  
 ✔️ Dashboard com métricas  
 ✔️ Gráfico de tempo estimado  
 ✔️ API REST estruturada  
-✔️ Arquitetura profissional (backend + microserviço IA)
+✔️ Interface moderna estilo app  
 
 ---
 
 ## 🏗️ Arquitetura do Projeto
-vialivre-ai
+
 │
 ├── src
 │ └── backend
-│ ├── app
 │ ├── controllers
-│ ├── services
-│ ├── repositories
-│ ├── middlewares
 │ ├── routes
-│ ├── utils
-│ └── database
-│
-├── ai-service
-│ ├── model
+│ ├── services
 │ ├── data
-│ ├── main.py
-│ ├── train_model.py
-│ └── requirements.txt
+│ ├── config
+│ ├── database
+│ ├── server.js
+│ │
+│ └── frontend
+│ ├── index.html
+│ ├── style.css
+│ └── script.js
 │
-└── frontend
-├── index.html
-├── style.css
-└── script.js
+├── package.json
+└── README.md
 
 
 ---
@@ -74,15 +75,7 @@ vialivre-ai
 - Node.js
 - Express
 - SQLite
-- Axios
 - Arquitetura em camadas
-
-### IA
-- Python
-- FastAPI
-- Scikit-learn
-- Pandas
-- Joblib
 
 ### Frontend
 - HTML5
@@ -95,6 +88,7 @@ vialivre-ai
 - OpenStreetMap
 - OSRM Routing API
 - Open-Meteo Weather API
+- Geolocation API
 
 ---
 
@@ -105,59 +99,35 @@ vialivre-ai
 ```bash
 git clone https://github.com/RobersonCodes/vialivre-ai.git
 cd vialivre-ai
-
-2. Instalar dependências do backend
+2. Instalar dependências
 npm install
-3. Executar backend
+3. Executar servidor
 npm run dev
 
 Servidor disponível em:
 
 http://localhost:3000
-4. Executar microserviço de IA
-
-Entrar na pasta:
-
-cd ai-service
-
-Instalar dependências:
-
-uv pip install -r requirements.txt
-
-Rodar IA:
-
-uv run uvicorn main:app --reload --port 8000
-
-API de IA disponível em:
-
-http://localhost:8000
-5. Abrir frontend
-
-Abrir arquivo:
-
-frontend/index.html
-
-ou usar extensão Live Server no VSCode.
-
 📊 Exemplo de análise gerada
 
-A IA retorna:
+O sistema retorna:
 
 tempo estimado de deslocamento
 risco de atraso
 classificação do trânsito
 melhor horário alternativo
 recomendação inteligente
+rota exibida no mapa
 🎯 Objetivo do Projeto
 
 Demonstrar conhecimentos em:
 
 arquitetura backend profissional
-integração entre Node.js e Python
 criação de APIs REST
-consumo de APIs externas
+integração com APIs externas
 desenvolvimento frontend moderno
-uso de Machine Learning em aplicações reais
+uso de geolocalização
+lógica de previsão de risco
+construção de projeto full stack
 👨‍💻 Autor
 
 Roberson de Oliveira
@@ -165,21 +135,15 @@ Roberson de Oliveira
 Projeto desenvolvido para portfólio profissional na área de tecnologia.
 
 📌 Melhorias Futuras
-autenticação de usuário
+login de usuário
+salvar casa e trabalho
 dashboard em React
 deploy na nuvem
 banco de dados PostgreSQL
-modelo de IA mais avançado
-análise preditiva com histórico maior
+previsão de trânsito em tempo real
+versão mobile PWA
+
 ⭐ Se este projeto te ajudou, deixe uma estrela no repositório!
 
+
 ---
-
-## Como atualizar no GitHub
-
-No terminal:
-
-```bash
-git add README.md
-git commit -m "docs: README premium profissional"
-git push
