@@ -164,10 +164,13 @@ Essa estrutura melhora manutenção, legibilidade e escalabilidade do projeto.
 Como executar o projeto
 1. Clonar o repositório
 git clone https://github.com/RobersonCodes/vialivre-ai.git
+
 2. Entrar na pasta do backend
 cd vialivre-ai/backend
+
 3. Instalar as dependências
 npm install
+
 4. Iniciar o servidor
 node server.js
 
