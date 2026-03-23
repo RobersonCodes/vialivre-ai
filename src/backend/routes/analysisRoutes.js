@@ -6,25 +6,26 @@ const validateAnalysis = require("../middlewares/validateAnalysis");
 const router = express.Router();
 
 /*
-  Base URL:
-  /api/v1/analises
+ Base URL:
+ /api/v1/analises
 */
 
-router.get(
-  "/analises",
-  analysisController.getAnalyses
-);
+router
+  .route("/analises")
 
-router.post(
-  "/analises",
-  validateAnalysis,
-  analysisController.createAnalysis
-);
+  .get(
+    analysisController.getAnalyses
+  )
 
-router.delete(
-  "/analises",
-  analysisController.clearAnalyses
-);
+  .post(
+    validateAnalysis,
+    analysisController.createAnalysis
+  )
+
+  .delete(
+    analysisController.clearAnalyses
+  );
+
 
 router.get(
   "/analises/stats",

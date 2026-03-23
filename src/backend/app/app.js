@@ -1,11 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 
-const analysisRoutes = require("./routes/analysisRoutes");
-const errorHandler = require("./middlewares/errorHandler");
-const notFoundHandler = require("./middlewares/notFoundHandler");
+const analysisRoutes = require("../routes/analysisRoutes");
+const errorHandler = require("../middlewares/errorHandler");
+const notFoundHandler = require("../middlewares/notFoundHandler");
 
-require("./database/init");
+require("../database/init");
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.status(200).json({
+  return res.status(200).json({
     success: true,
     data: {
       name: "ViaLivre AI API",
@@ -25,13 +25,9 @@ app.get("/", (req, res) => {
 });
 
 app.get("/health", (req, res) => {
-  res.status(200).json({
+  return res.status(200).json({
     success: true,
-    message: "API saudável",
-    data: {
-      uptime: process.uptime(),
-      timestamp: new Date().toISOString()
-    }
+    message: "API saudável"
   });
 });
 

@@ -2,10 +2,10 @@
   "name": "vialivre-ai-backend",
   "version": "1.0.0",
   "description": "API REST para simulação de trânsito inteligente",
-  "main": "server.js",
+  "main": "src/backend/server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "node src/backend/server.js",
+    "dev": "node src/backend/server.js"
   },
   "keywords": [
     "node",
@@ -19,7 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.6",
-    "express": "^5.0.0",
+    "express": "^5.2.1",
     "sqlite3": "^5.1.7"
   }
 }
