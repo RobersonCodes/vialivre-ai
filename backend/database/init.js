@@ -1,4 +1,4 @@
-const db = require("./db");
+const { db } = require("./db");
 
 db.serialize(() => {
   db.run(`
@@ -9,8 +9,8 @@ db.serialize(() => {
       horario TEXT NOT NULL,
       clima TEXT,
       transporte TEXT,
-      distanciaKm TEXT,
-      tempoBase INTEGER,
+      distanciaKm REAL,
+      tempoBase INTEGER NOT NULL,
       trafego TEXT,
       mensagem TEXT,
       risco INTEGER,
@@ -19,11 +19,27 @@ db.serialize(() => {
       melhorHorario TEXT,
       createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
     )
-  `, (err) => {
-    if (err) {
-      console.error("Erro ao criar tabela:", err.message);
-    } else {
-      console.log("Tabela analises pronta.");
-    }
-  });
+  `);
+
+  db.run(`
+    CREATE INDEX IF NOT EXISTS idx_analises_createdAt
+    ON analises(createdAt DESC)
+  `);
+
+  db.run(`
+    CREATE INDEX IF NOT EXISTS idx_analises_risco
+    ON analises(risco)
+  `);
+
+  db.run(`
+    CREATE INDEX IF NOT EXISTS idx_analises_tempo
+    ON analises(tempoBase)
+  `);
+
+  db.run(`
+    CREATE INDEX IF NOT EXISTS idx_analises_origem_destino
+    ON analises(origem, destino)
+  `);
+
+  console.log("Tabela analises pronta e otimizada.");
 });
