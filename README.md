@@ -1,60 +1,114 @@
 # 🚦 ViaLivre AI
+### Inteligência Artificial para prever atrasos antes mesmo de você sair de casa
 
-Sistema inteligente de previsão de mobilidade urbana utilizando **Inteligência Artificial**, análise de rota, clima e GPS para recomendar o melhor horário de deslocamento.
+<p align="center">
 
-O projeto combina **backend Node.js**, **frontend moderno com mapa interativo**, **integração com APIs externas** e **geolocalização em tempo real**.
+Aplicação **Full Stack** que combina **IA**, **GPS**, **mapas interativos** e **dados climáticos**
+para recomendar o melhor horário de deslocamento com base em risco de atraso.
+
+</p>
 
 ---
 
-## 🧠 Visão Geral
+<p align="center">
 
-O **ViaLivre AI** analisa:
+<img src="https://img.shields.io/badge/status-active-success?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/version-2.0-blue?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/node.js-backend-green?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/frontend-modern-purple?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/maps-leaflet-blue?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/license-MIT-lightgrey?style=for-the-badge"/>
 
-- distância da rota
+</p>
+
+---
+
+## 🧠 Sobre o Projeto
+
+O **ViaLivre AI** é um sistema inteligente que analisa múltiplos fatores de mobilidade urbana para prever o risco de atraso em um deslocamento.
+
+A aplicação utiliza:
+
+- geolocalização em tempo real (GPS)
+- cálculo de rota
 - previsão do clima
-- horário do deslocamento
+- horário selecionado
 - tipo de transporte
-- padrão estimado de trânsito
-- localização atual via GPS
+- heurística de risco baseada em IA
 
-Com base nesses dados, o sistema calcula:
-
-- risco de atraso
-- tempo estimado
-- melhor horário de saída
-- nível de trânsito esperado
-- recomendação inteligente de mobilidade
+para gerar recomendações inteligentes.
 
 ---
 
 ## ✨ Funcionalidades
 
-✔️ Simulação de trajeto com IA  
-✔️ GPS como origem automática  
-✔️ Navegação com Google Maps  
-✔️ Previsão de risco de atraso  
-✔️ Mapa interativo em tempo real  
-✔️ Análise baseada em clima  
-✔️ Comparação de horários  
-✔️ Comparação de transportes  
-✔️ Histórico de análises  
-✔️ Dashboard com métricas  
-✔️ Gráfico de tempo estimado  
-✔️ API REST estruturada  
-✔️ Interface moderna estilo app  
+### Mobilidade inteligente
+- 🧠 cálculo de risco de atraso
+- 📍 GPS automático como origem
+- 🧭 navegação integrada com Google Maps
+- 🗺️ mapa interativo com rota
+- 🌦️ previsão do clima integrada
+- 🚗 comparação entre transportes
+- ⏱️ comparação de horários alternativos
+
+### Experiência do usuário
+- interface moderna estilo app
+- feedback visual de risco
+- gráfico de tempo estimado
+- histórico de análises
+- dashboard de métricas
+- autocomplete de localização
+
+### Arquitetura profissional
+- backend estruturado em camadas
+- API REST organizada
+- separação frontend/backend
+- integração com APIs externas
+- código modular e escalável
 
 ---
 
-## 🏗️ Arquitetura do Projeto
+## 🖼️ Preview
 
+<p align="center">
+<img src="https://dummyimage.com/1200x650/0f172a/ffffff&text=ViaLivre+AI+Dashboard"/>
+</p>
+
+---
+
+## ⚙️ Como funciona
+
+O sistema realiza:
+
+1. captura da localização via GPS
+2. cálculo da distância entre origem e destino
+3. obtenção da previsão do clima
+4. análise do horário informado
+5. avaliação do tipo de transporte
+6. cálculo heurístico de risco
+7. geração da recomendação inteligente
+
+Resultado:
+
+- tempo estimado de deslocamento
+- nível de risco
+- recomendação de horário
+- comparação entre cenários
+- rota exibida no mapa
+
+---
+
+## 🏗️ Arquitetura
+
+vialivre-ai
 │
 ├── src
 │ └── backend
 │ ├── controllers
 │ ├── routes
 │ ├── services
-│ ├── data
 │ ├── config
+│ ├── data
 │ ├── database
 │ ├── server.js
 │ │
@@ -69,13 +123,13 @@ Com base nesses dados, o sistema calcula:
 
 ---
 
-## 🧩 Tecnologias Utilizadas
+## 🧩 Tecnologias
 
 ### Backend
 - Node.js
 - Express
 - SQLite
-- Arquitetura em camadas
+- arquitetura em camadas
 
 ### Frontend
 - HTML5
@@ -92,58 +146,64 @@ Com base nesses dados, o sistema calcula:
 
 ---
 
-## 🚀 Como Executar o Projeto
+## 🚀 Executar localmente
 
-### 1. Clonar repositório
+### clonar repositório
 
 ```bash
 git clone https://github.com/RobersonCodes/vialivre-ai.git
 cd vialivre-ai
-2. Instalar dependências
+
+instalar dependências
 npm install
-3. Executar servidor
+iniciar servidor
 npm run dev
-
-Servidor disponível em:
-
+acessar aplicação
 http://localhost:3000
-📊 Exemplo de análise gerada
+📊 Exemplo de análise
 
-O sistema retorna:
+Entrada:
 
-tempo estimado de deslocamento
-risco de atraso
-classificação do trânsito
-melhor horário alternativo
-recomendação inteligente
-rota exibida no mapa
-🎯 Objetivo do Projeto
+origem: São Leopoldo
+destino: Novo Hamburgo
+horário: 11:00
+transporte: carro
+clima: parcialmente nublado
 
-Demonstrar conhecimentos em:
+Saída:
 
-arquitetura backend profissional
+tempo estimado: 7 minutos
+risco de atraso: baixo
+nível de trânsito: leve
+recomendação: horário adequado
+
+🎯 Objetivo
+
+Demonstrar habilidades em:
+
+desenvolvimento full stack
 criação de APIs REST
+arquitetura de software
 integração com APIs externas
-desenvolvimento frontend moderno
-uso de geolocalização
+manipulação de mapas
+geolocalização em aplicações web
 lógica de previsão de risco
-construção de projeto full stack
+organização de código profissional
+📌 Roadmap
+autenticação de usuário
+salvar casa e trabalho
+dashboard em React
+versão mobile PWA
+deploy em nuvem
+banco de dados PostgreSQL
+previsão de trânsito em tempo real
+machine learning avançado
 👨‍💻 Autor
 
 Roberson de Oliveira
 
 Projeto desenvolvido para portfólio profissional na área de tecnologia.
 
-📌 Melhorias Futuras
-login de usuário
-salvar casa e trabalho
-dashboard em React
-deploy na nuvem
-banco de dados PostgreSQL
-previsão de trânsito em tempo real
-versão mobile PWA
+⭐ Apoie o projeto
 
-⭐ Se este projeto te ajudou, deixe uma estrela no repositório!
-
-
----
+Se este projeto te ajudou, deixe uma estrela no repositório.
