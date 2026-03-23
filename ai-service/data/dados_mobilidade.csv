@@ -1,0 +1,21 @@
+origem,destino,hora,clima,transporte,distancia_km,tempo_base,risco,trafego
+Sao Leopoldo,Porto Alegre,8,chuva,onibus,35,52,82,intenso
+Sao Leopoldo,Porto Alegre,6,sol,carro,35,38,34,moderado
+Novo Hamburgo,Porto Alegre,18,chuva,carro,42,60,88,intenso
+Novo Hamburgo,Canoas,14,nublado,carro,22,28,36,moderado
+Sapucaia do Sul,Canoas,7,garoa,onibus,12,26,63,moderado
+Canoas,Porto Alegre,9,chuva,moto,18,25,58,moderado
+Esteio,Porto Alegre,17,tempestade,carro,24,45,91,intenso
+Sao Leopoldo,Novo Hamburgo,13,sol,moto,9,14,16,leve
+Sao Leopoldo,Canoas,16,nublado,carro,21,27,41,moderado
+Porto Alegre,Centro,11,sol,carro,8,16,18,leve
+Cachoeirinha,Porto Alegre,8,chuva,onibus,19,34,77,intenso
+Gravatai,Porto Alegre,6,sol,carro,27,31,29,leve
+Gravatai,Canoas,15,nublado,onibus,20,33,49,moderado
+Sapiranga,Sao Leopoldo,7,garoa,carro,18,24,52,moderado
+Campo Bom,Novo Hamburgo,18,chuva,moto,14,21,47,moderado
+Sao Leopoldo,Porto Alegre,19,tempestade,onibus,35,66,95,intenso
+Sao Leopoldo,Porto Alegre,10,nublado,carro,35,41,39,moderado
+Novo Hamburgo,Porto Alegre,12,sol,moto,42,37,24,leve
+Canoas,Porto Alegre,7,chuva,onibus,18,31,74,intenso
+Esteio,Canoas,9,nublado,carro,10,17,32,leve

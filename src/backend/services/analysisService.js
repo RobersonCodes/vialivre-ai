@@ -1,152 +1,154 @@
+const axios = require("axios");
 const analysisRepository = require("../repositories/analysisRepository");
 const AppError = require("../utils/AppError");
 
-function isRushHour(horario) {
-  return (
-    (horario >= "07:00" && horario <= "09:00") ||
-    (horario >= "17:00" && horario <= "19:00")
+async function predictRiskWithAI(data) {
+
+  const hora = parseInt(
+    (data.horario || "00:00").split(":")[0],
+    10
   );
-}
 
-function calculateTrafficLevel(risco) {
-  if (risco >= 70) return "intenso";
-  if (risco >= 40) return "moderado";
-  return "leve";
-}
-
-function generateRecommendation(risco, horario) {
-  if (risco >= 70) {
-    return {
-      mensagem: "Alto risco de atraso. Saia mais cedo.",
-      melhorHorario: "06:00"
-    };
-  }
-
-  if (risco >= 40) {
-    return {
-      mensagem: "Risco moderado. Considere sair um pouco antes.",
-      melhorHorario: horario
-    };
-  }
-
-  return {
-    mensagem: "Condições favoráveis para sair no horário planejado.",
-    melhorHorario: horario
-  };
-}
-
-function buildAnalysis(data) {
-  let tempoBase = 20;
-  let risco = 20;
-
-  if (isRushHour(data.horario)) {
-    tempoBase += 20;
-    risco += 25;
-  }
-
-  if (data.clima === "chuva") {
-    tempoBase += 15;
-    risco += 20;
-  }
-
-  if (data.transporte === "onibus") {
-    tempoBase += 10;
-    risco += 10;
-  }
-
-  if (data.transporte === "bicicleta" && data.clima === "chuva") {
-    tempoBase += 20;
-    risco += 15;
-  }
-
-  if (risco > 100) risco = 100;
-
-  const trafego = calculateTrafficLevel(risco);
-
-  const recomendacao = generateRecommendation(risco, data.horario);
-
-  return {
+  const payload = {
     origem: data.origem,
     destino: data.destino,
-    horario: data.horario,
+    hora,
     clima: data.clima,
     transporte: data.transporte,
-
-    distanciaKm: data.distanciaKm || null,
-
-    tempoBase,
-    trafego,
-
-    mensagem: recomendacao.mensagem,
-
-    risco,
-
-    chanceLeve: 100 - risco,
-
-    classificacaoIA: trafego,
-
-    melhorHorario: recomendacao.melhorHorario
+    distancia_km: Number(data.distanciaKm || 0),
+    tempo_base: Number(data.tempoBase || 20)
   };
+
+  try {
+
+    const response = await axios.post(
+      "http://127.0.0.1:8000/predict",
+      payload
+    );
+
+    return response.data;
+
+  } catch (error) {
+
+    console.error("Erro ao chamar IA:", error.message);
+
+    throw new AppError(
+      "Serviço de IA indisponível.",
+      503
+    );
+
+  }
+
 }
 
-async function getAllAnalyses() {
-  return analysisRepository.getAllAnalyses();
+function gerarMensagem(trafego) {
+
+  if (trafego === "intenso") {
+    return "Alta probabilidade de atraso.";
+  }
+
+  if (trafego === "moderado") {
+    return "Pode haver pequeno atraso.";
+  }
+
+  return "Condições favoráveis.";
+
 }
 
 async function createAnalysis(payload) {
+
   if (!payload) {
-    throw new AppError("Dados não informados.", 400);
+
+    throw new AppError(
+      "Dados não enviados.",
+      400
+    );
+
   }
 
-  const analysis = buildAnalysis(payload);
+  const ai = await predictRiskWithAI(payload);
+
+  const analysis = {
+
+    origem: payload.origem,
+    destino: payload.destino,
+    horario: payload.horario,
+    clima: payload.clima,
+    transporte: payload.transporte,
+
+    distanciaKm: payload.distanciaKm || 0,
+
+    tempoBase: payload.tempoBase || 20,
+
+    risco: Math.round(ai.risco),
+
+    chanceLeve: ai.chanceLeve,
+
+    trafego: ai.trafego,
+
+    classificacaoIA: ai.classificacaoIA,
+
+    mensagem: gerarMensagem(ai.trafego),
+
+    melhorHorario: payload.horario
+
+  };
 
   return analysisRepository.createAnalysis(analysis);
+
+}
+
+async function getAllAnalyses() {
+
+  return analysisRepository.getAllAnalyses();
+
 }
 
 async function clearAnalyses() {
-  const result = await analysisRepository.clearAnalyses();
 
-  return {
-    message: "Histórico removido com sucesso.",
-    deletedRows: result.deletedRows
-  };
+  return analysisRepository.clearAnalyses();
+
 }
 
 async function getStats() {
+
   const analyses = await analysisRepository.getAllAnalyses();
 
   const total = analyses.length;
 
-  if (total === 0) {
+  if (!total) {
+
     return {
-      total: 0,
-      riscoMedio: 0,
-      trafegoMaisComum: null
+      total: 0
     };
+
   }
 
-  const riscoTotal = analyses.reduce((acc, item) => acc + item.risco, 0);
-
-  const trafegoContagem = {};
-
-  analyses.forEach(a => {
-    trafegoContagem[a.trafego] =
-      (trafegoContagem[a.trafego] || 0) + 1;
-  });
-
-  const trafegoMaisComum = Object.entries(trafegoContagem)
-    .sort((a, b) => b[1] - a[1])[0][0];
+  const media =
+    analyses.reduce(
+      (sum, a) => sum + (a.risco || 0),
+      0
+    ) / total;
 
   return {
+
     total,
-    riscoMedio: Math.round(riscoTotal / total),
-    trafegoMaisComum
+
+    riscoMedio:
+      Math.round(media)
+
   };
+
 }
 
 module.exports = {
-  getAllAnalyses,
+
   createAnalysis,
+
+  getAllAnalyses,
+
   clearAnalyses,
+
   getStats
+
 };
