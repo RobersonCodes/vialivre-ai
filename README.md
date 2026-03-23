@@ -155,10 +155,13 @@ cd vialivre-ai
 
 instalar dependências
 npm install
+
 iniciar servidor
 npm run dev
+
 acessar aplicação
 http://localhost:3000
+
 📊 Exemplo de análise
 
 Entrada:
@@ -188,7 +191,9 @@ manipulação de mapas
 geolocalização em aplicações web
 lógica de previsão de risco
 organização de código profissional
+
 📌 Roadmap
+
 autenticação de usuário
 salvar casa e trabalho
 dashboard em React
@@ -197,6 +202,7 @@ deploy em nuvem
 banco de dados PostgreSQL
 previsão de trânsito em tempo real
 machine learning avançado
+
 👨‍💻 Autor
 
 Roberson de Oliveira
