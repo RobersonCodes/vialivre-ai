@@ -61,6 +61,41 @@ A proposta do projeto é demonstrar como tecnologia pode ser utilizada para melh
 - lógica de simulação de mobilidade
 
 ---
+## 🖼️ Preview da aplicação
+
+### Página inicial
+
+![Hero](assets/images/preview-hero.png)
+
+---
+
+### Dashboard inteligente
+
+![Dashboard](assets/images/preview-dashboard.png)
+
+---
+
+### Resultado da análise inteligente
+
+![Resultado](assets/images/preview-resultado.png)
+
+---
+
+### Visualização da rota no mapa
+
+![Mapa](assets/images/preview-mapa.png)
+
+---
+
+### Comparação inteligente de horários
+
+![Comparações](assets/images/preview-comparacoes.png)
+
+---
+
+### Comparação de modais de transporte
+
+![Transportes](assets/images/preview-transportes.png)
 
 # Arquitetura do projeto
 
