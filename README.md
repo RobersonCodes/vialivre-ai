@@ -1,130 +1,69 @@
-# 🚦 ViaLivre AI
-### Inteligência Artificial para prever atrasos antes mesmo de você sair de casa
+<p align="center">
+  <img src="./assets/images/banner_jpg" width="100%">
+</p>
+
+<h1 align="center">ViaLivre AI</h1>
 
 <p align="center">
+Mobilidade inteligente com análise preditiva de trânsito, clima e rotas em tempo real.
+</p>
 
-Aplicação **Full Stack** que combina **IA**, **GPS**, **mapas interativos** e **dados climáticos**
-para recomendar o melhor horário de deslocamento com base em risco de atraso.
-
+<p align="center">
+Planeje seu deslocamento com mais segurança, previsibilidade e eficiência utilizando inteligência artificial.
 </p>
 
 ---
 
-<p align="center">
+# Sobre o projeto
 
-<img src="https://img.shields.io/badge/status-active-success?style=for-the-badge"/>
-<img src="https://img.shields.io/badge/version-2.0-blue?style=for-the-badge"/>
-<img src="https://img.shields.io/badge/node.js-backend-green?style=for-the-badge"/>
-<img src="https://img.shields.io/badge/frontend-modern-purple?style=for-the-badge"/>
-<img src="https://img.shields.io/badge/maps-leaflet-blue?style=for-the-badge"/>
-<img src="https://img.shields.io/badge/license-MIT-lightgrey?style=for-the-badge"/>
+O **ViaLivre AI** é uma aplicação que simula cenários de mobilidade urbana utilizando dados de rota, clima e modal de transporte para calcular risco de atraso e recomendar o melhor momento para sair.
 
-</p>
+A proposta do projeto é demonstrar como tecnologia pode ser utilizada para melhorar decisões do dia a dia, combinando:
 
----
-
-## 🧠 Sobre o Projeto
-
-O **ViaLivre AI** é um sistema inteligente que analisa múltiplos fatores de mobilidade urbana para prever o risco de atraso em um deslocamento.
-
-A aplicação utiliza:
-
-- geolocalização em tempo real (GPS)
-- cálculo de rota
-- previsão do clima
-- horário selecionado
-- tipo de transporte
-- heurística de risco baseada em IA
-
-para gerar recomendações inteligentes.
+- análise de trajeto
+- previsão climática
+- comparação de modais
+- cálculo de risco
+- visualização geográfica
+- recomendações inteligentes
 
 ---
 
-## ✨ Funcionalidades
+# Funcionalidades
 
-### Mobilidade inteligente
-- 🧠 cálculo de risco de atraso
-- 📍 GPS automático como origem
-- 🧭 navegação integrada com Google Maps
-- 🗺️ mapa interativo com rota
-- 🌦️ previsão do clima integrada
-- 🚗 comparação entre transportes
-- ⏱️ comparação de horários alternativos
-
-### Experiência do usuário
-- interface moderna estilo app
-- feedback visual de risco
-- gráfico de tempo estimado
-- histórico de análises
-- dashboard de métricas
-- autocomplete de localização
-
-### Arquitetura profissional
-- backend estruturado em camadas
-- API REST organizada
-- separação frontend/backend
-- integração com APIs externas
-- código modular e escalável
+- cálculo de risco de atraso com base em múltiplos fatores
+- comparação entre diferentes meios de transporte
+- sugestão do melhor horário para sair
+- visualização da rota no mapa
+- geolocalização automática
+- simulação de cenários
+- dashboard com histórico de análises
+- interface moderna estilo SaaS
 
 ---
 
-## 🖼️ Preview da aplicação
+# Tecnologias utilizadas
 
-### Página inicial
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
+- Leaflet (mapas interativos)
 
-![Hero](./assets/images/preview-hero.png)
+### Backend
+- Node.js
+- Express
+- SQLite
 
----
-
-### Dashboard inteligente
-
-![Dashboard](./assets/images/preview-dashboard.png)
-
----
-
-### Resultado da análise inteligente
-
-![Resultado](./assets/images/preview-resultado.png)
-
----
-
-### Visualização da rota no mapa
-
-![Mapa](./assets/images/preview-mapa.png)
+### APIs e recursos
+- Geolocalização do navegador
+- OpenStreetMap
+- lógica de simulação de mobilidade
 
 ---
 
-### Comparação inteligente de horários
+# Arquitetura do projeto
 
-![Comparações](./assets/images/preview-comparacoes.png)
-
----
-
-### Comparação de modais de transporte
-
-![Transportes](./assets/images/preview-transportes.png)
-
-## ⚙️ Como funciona
-
-O sistema realiza:
-
-1. captura da localização via GPS
-2. cálculo da distância entre origem e destino
-3. obtenção da previsão do clima
-4. análise do horário informado
-5. avaliação do tipo de transporte
-6. cálculo heurístico de risco
-7. geração da recomendação inteligente
-
-Resultado:
-
-- tempo estimado de deslocamento
-- nível de risco
-- recomendação de horário
-- comparação entre cenários
-- rota exibida no mapa
-
----
 
 ## 🏗️ Arquitetura
 

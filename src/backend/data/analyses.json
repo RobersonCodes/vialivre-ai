@@ -1,5 +1,22 @@
 [
   {
+    "id": "tzi53wg0",
+    "origem": "Avenida Feitoria, Loteamento Novo Acácias, Feitoria, São Leopoldo, Região Geográfica Imediata de Novo Hamburgo - São Leopoldo, Região Metropolitana de Porto Alegre, Região Geográfica Intermediária de Porto Alegre, Rio Grande do Sul, Região Sul, 93048-240, Brasil",
+    "destino": "Porto Alegre",
+    "horario": "22:00",
+    "clima": "nublado",
+    "transporte": "carro",
+    "distanciaKm": 38.1,
+    "tempoBase": 57,
+    "trafego": "leve",
+    "risco": 43,
+    "classificacaoIA": "Médio",
+    "chanceLeve": 85,
+    "melhorHorario": "Horário atual adequado",
+    "mensagem": "Trajeto razoável, mas com pontos de atenção.",
+    "createdAt": "2026-03-23T18:08:27.063Z"
+  },
+  {
     "id": "3jvpcrc8",
     "origem": "Avenida Feitoria, Loteamento Novo Acácias, Feitoria, São Leopoldo, Região Geográfica Imediata de Novo Hamburgo - São Leopoldo, Região Metropolitana de Porto Alegre, Região Geográfica Intermediária de Porto Alegre, Rio Grande do Sul, Região Sul, 93048-240, Brasil",
     "destino": "Taquara",
