@@ -68,12 +68,44 @@ para gerar recomendações inteligentes.
 
 ---
 
-## 🖼️ Preview
+## 🖼️ Preview da aplicação
 
-<p align="center">
-<img src="https://dummyimage.com/1200x650/0f172a/ffffff&text=ViaLivre+AI+Dashboard"/>
-</p>
+### Página inicial
+![Hero](./assets/images/banner.png)
 
+---
+
+![Hero](./assets/images/preview-hero.png)
+
+---
+
+### Dashboard inteligente
+
+![Dashboard](./assets/images/preview-dashboard.png)
+
+---
+
+### Resultado da análise inteligente
+
+![Resultado](./assets/images/preview-resultado.png)
+
+---
+
+### Visualização da rota no mapa
+
+![Mapa](./assets/images/preview-mapa.png)
+
+---
+
+### Comparação inteligente de horários
+
+![Comparações](./assets/images/preview-comparacoes.png)
+
+---
+
+### Comparação de modais de transporte
+
+![Transportes](./assets/images/preview-transportes.png)
 ---
 
 ## ⚙️ Como funciona
