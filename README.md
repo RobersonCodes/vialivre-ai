@@ -129,25 +129,37 @@ A aplicação pode utilizar clima manual e também consultar previsão meteorol�
 
 ```bash
 vialivre-ai
-│
-├── backend
-│   ├── controllers
-│   ├── services
-│   ├── repositories
-│   ├── routes
-│   ├── middlewares
-│   ├── database
-│   ├── utils
-│   ├── app.js
-│   └── server.js
-│
-├── frontend
-│   ├── index.html
-│   ├── style.css
-│   └── script.js
-│
-├── .gitignore
-└── README.md
+src
+ └── backend
+     ├── controllers
+     │   └── analysisController.js
+     │
+     ├── services
+     │   └── analysisService.js
+     │
+     ├── models
+     │   └── analysisModel.js
+     │
+     ├── routes
+     │   └── analysisRoutes.js
+     │
+     ├── middlewares
+     │   ├── errorHandler.js
+     │   └── notFoundHandler.js
+     │
+     ├── utils
+     │   ├── logger.js
+     │   └── response.js
+     │
+     ├── database
+     │   ├── db.js
+     │   ├── init.js
+     │   └── schema.sql
+     │
+     ├── app.js
+     ├── server.js
+     ├── package.json
+     └── package-lock.json
 
 Padrão de arquitetura
 
