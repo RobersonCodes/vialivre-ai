@@ -1,5 +1,5 @@
-<p align="center">
-  <img src="./assets/images/banner_jpg" width="100%">
+<<p align="center">
+  <img src="assets/images/banner.jpg" width="100%">
 </p>
 
 <h1 align="center">ViaLivre AI</h1>
