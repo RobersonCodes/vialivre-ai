@@ -1,272 +1,185 @@
-# ViaLivre AI 🚦
+# 🚦 ViaLivre AI
 
-Aplicação web full stack desenvolvida para simular condições de trânsito e recomendar o melhor horário para sair com base em rota, clima, transporte e risco estimado de atraso.
+Sistema inteligente de previsão de mobilidade urbana utilizando **Inteligência Artificial**, análise de rota e dados climáticos para recomendar o melhor horário de deslocamento.
 
-O projeto foi criado com foco em mobilidade inteligente e demonstra integração entre frontend, backend, API REST, banco de dados, mapa interativo, gráfico de histórico e consumo de APIs externas.
-
----
-
-## Preview
-
-O sistema oferece uma interface moderna e intuitiva para:
-
-- simular trajetos
-- gerar recomendações inteligentes
-- visualizar nível de risco
-- acompanhar histórico das análises
-- consultar gráfico de tempo estimado
-- visualizar origem e destino no mapa
+O projeto combina **backend Node.js**, **microserviço de IA em Python**, **frontend moderno** e integração com APIs externas para gerar análises de risco de atraso em tempo real.
 
 ---
 
-## Problema resolvido
+## 🧠 Visão Geral
 
-Na rotina urbana, muitas pessoas saem de casa sem saber:
+O **ViaLivre AI** analisa:
 
-- quanto tempo o trajeto realmente vai levar
-- se haverá trânsito intenso
-- se o clima vai piorar a situação
-- qual o melhor horário para sair
-- qual o risco de chegar atrasado
+- distância da rota
+- previsão do clima
+- horário do deslocamento
+- tipo de transporte
+- padrão histórico de trânsito
 
-O ViaLivre AI reduz essa incerteza ao transformar dados simples em uma recomendação prática e objetiva.
+Com base nesses dados, a IA calcula:
 
----
-
-## Funcionalidades
-
-### Simulação inteligente de trajeto
-O usuário informa:
-
-- origem
-- destino
-- horário
-- clima
-- transporte
-
-A aplicação gera:
-
-- distância estimada da rota
-- tempo previsto de deslocamento
-- nível de trânsito
-- pontuação de risco
-- chance de trânsito leve
-- melhor horário sugerido
-- mensagem de recomendação
-
-### Histórico de análises
-As análises são registradas e exibidas em lista com:
-
-- origem e destino
-- horário
-- clima
-- transporte
+- risco de atraso
 - tempo estimado
-- risco
-- nível de trânsito
-
-### Gráfico de tempo estimado
-O sistema apresenta um gráfico com a variação do tempo previsto ao longo das análises realizadas.
-
-### Medidor visual de risco
-A aplicação exibe um medidor com escala de risco de 0 a 100:
-
-- verde → baixo risco
-- amarelo → risco moderado
-- vermelho → alto risco
-
-### Comparação de horários
-O sistema compara horários próximos ao informado e sugere a opção mais favorável.
-
-### Mapa interativo
-A aplicação usa Leaflet com OpenStreetMap para mostrar origem, destino e rota estimada no mapa.
-
-### Integração com clima
-A aplicação pode utilizar clima manual e também consultar previsão meteorológica e condições atuais.
+- melhor horário de saída
+- nível de trânsito esperado
 
 ---
 
-## Diferenciais do projeto
+## ✨ Funcionalidades
 
-- análise de risco baseada em regras de negócio
-- integração com APIs externas de rota e clima
-- persistência em banco SQLite
-- frontend dinâmico com atualização em tempo real
-- visualização gráfica e geográfica
-- arquitetura backend organizada em camadas
-- projeto orientado a portfólio profissional
+✔️ Simulação de trajeto com IA  
+✔️ Previsão de risco de atraso  
+✔️ Integração com mapa interativo  
+✔️ Análise baseada em clima real  
+✔️ Histórico de análises  
+✔️ Dashboard com métricas  
+✔️ Gráfico de tempo estimado  
+✔️ API REST estruturada  
+✔️ Arquitetura profissional (backend + microserviço IA)
 
 ---
 
-## Tecnologias utilizadas
+## 🏗️ Arquitetura do Projeto
+vialivre-ai
+│
+├── src
+│ └── backend
+│ ├── app
+│ ├── controllers
+│ ├── services
+│ ├── repositories
+│ ├── middlewares
+│ ├── routes
+│ ├── utils
+│ └── database
+│
+├── ai-service
+│ ├── model
+│ ├── data
+│ ├── main.py
+│ ├── train_model.py
+│ └── requirements.txt
+│
+└── frontend
+├── index.html
+├── style.css
+└── script.js
 
-### Frontend
-- HTML
-- CSS
-- JavaScript
-- Chart.js
-- Leaflet.js
+
+---
+
+## 🧩 Tecnologias Utilizadas
 
 ### Backend
 - Node.js
 - Express
 - SQLite
+- Axios
+- Arquitetura em camadas
 
-### APIs e recursos externos
-- OpenStreetMap / Nominatim
-- OSRM
-- Open-Meteo
+### IA
+- Python
+- FastAPI
+- Scikit-learn
+- Pandas
+- Joblib
 
-### Outros
-- JSON
-- Git
-- GitHub
-- API REST
+### Frontend
+- HTML5
+- CSS moderno
+- JavaScript
+- Chart.js
+- Leaflet.js
+
+### APIs externas
+- OpenStreetMap
+- OSRM Routing API
+- Open-Meteo Weather API
 
 ---
 
-## Arquitetura do projeto
+## 🚀 Como Executar o Projeto
+
+### 1. Clonar repositório
 
 ```bash
-vialivre-ai
-src
- └── backend
-     ├── controllers
-     │   └── analysisController.js
-     │
-     ├── services
-     │   └── analysisService.js
-     │
-     ├── models
-     │   └── analysisModel.js
-     │
-     ├── routes
-     │   └── analysisRoutes.js
-     │
-     ├── middlewares
-     │   ├── errorHandler.js
-     │   └── notFoundHandler.js
-     │
-     ├── utils
-     │   ├── logger.js
-     │   └── response.js
-     │
-     ├── database
-     │   ├── db.js
-     │   ├── init.js
-     │   └── schema.sql
-     │
-     ├── app.js
-     ├── server.js
-     ├── package.json
-     └── package-lock.json
-
-Padrão de arquitetura
-
-O backend segue separação por responsabilidades:
-
-controllers → recebem requisições e devolvem respostas
-services → aplicam regras de negócio
-repositories → acessam o banco de dados
-middlewares → validação e tratamento de erros
-database → conexão e inicialização do SQLite
-
-Essa estrutura melhora manutenção, legibilidade e escalabilidade do projeto.
-
-Como executar o projeto
-1. Clonar o repositório
 git clone https://github.com/RobersonCodes/vialivre-ai.git
+cd vialivre-ai
 
-2. Entrar na pasta do backend
-cd vialivre-ai/backend
-
-3. Instalar as dependências
+2. Instalar dependências do backend
 npm install
-
-4. Iniciar o servidor
-node server.js
+3. Executar backend
+npm run dev
 
 Servidor disponível em:
 
 http://localhost:3000
-5. Executar o frontend
+4. Executar microserviço de IA
 
-Abra o arquivo:
+Entrar na pasta:
+
+cd ai-service
+
+Instalar dependências:
+
+uv pip install -r requirements.txt
+
+Rodar IA:
+
+uv run uvicorn main:app --reload --port 8000
+
+API de IA disponível em:
+
+http://localhost:8000
+5. Abrir frontend
+
+Abrir arquivo:
 
 frontend/index.html
 
-ou utilize a extensão Live Server no VS Code.
+ou usar extensão Live Server no VSCode.
 
-Endpoints da API
-Método	Endpoint	Descrição
-GET	/api/v1/analises	Lista análises
-POST	/api/v1/analises	Cria nova análise
-DELETE	/api/v1/analises	Limpa histórico
-GET	/api/v1/analises/stats	Retorna estatísticas
-Exemplo de requisição
-POST /api/v1/analises
-{
-  "origem": "São Leopoldo",
-  "destino": "Porto Alegre",
-  "horario": "08:00",
-  "clima": "chuva",
-  "transporte": "onibus"
-}
-Exemplo de resposta
-{
-  "success": true,
-  "message": "Análise criada com sucesso.",
-  "data": {
-    "origem": "São Leopoldo",
-    "destino": "Porto Alegre",
-    "horario": "08:00",
-    "clima": "chuva",
-    "transporte": "onibus",
-    "tempoBase": 55,
-    "trafego": "intenso",
-    "risco": 82,
-    "chanceLeve": 18,
-    "classificacaoIA": "Cenário crítico",
-    "melhorHorario": "06:30"
-  }
-}
-Objetivo do projeto
+📊 Exemplo de análise gerada
 
-Este projeto foi desenvolvido para demonstrar conhecimentos em:
+A IA retorna:
 
-lógica de programação
-desenvolvimento full stack
-arquitetura backend em camadas
-criação e consumo de APIs
-manipulação de dados em JSON
-integração com mapas
-integração com clima
-visualização de dados em gráficos
-persistência em banco de dados
-organização profissional de código
-versionamento com Git e GitHub
-Roadmap técnico
+tempo estimado de deslocamento
+risco de atraso
+classificação do trânsito
+melhor horário alternativo
+recomendação inteligente
+🎯 Objetivo do Projeto
 
-Próximas evoluções planejadas:
+Demonstrar conhecimentos em:
 
-autenticação de usuários
-histórico por usuário
-deploy completo da aplicação
-dashboard com métricas avançadas
-exportação de histórico
-integração com banco relacional
-previsões mais sofisticadas com IA ou machine learning
-melhoria na precisão da recomendação com mais variáveis
-Autor
+arquitetura backend profissional
+integração entre Node.js e Python
+criação de APIs REST
+consumo de APIs externas
+desenvolvimento frontend moderno
+uso de Machine Learning em aplicações reais
+👨‍💻 Autor
 
 Roberson de Oliveira
 
-Desenvolvedor em formação com foco em backend, APIs REST e projetos práticos para portfólio.
+Projeto desenvolvido para portfólio profissional na área de tecnologia.
 
-Profissional em transição de carreira, com experiência anterior na área industrial e dedicação ao desenvolvimento de soluções reais para fortalecer sua trajetória em tecnologia.
+📌 Melhorias Futuras
+autenticação de usuário
+dashboard em React
+deploy na nuvem
+banco de dados PostgreSQL
+modelo de IA mais avançado
+análise preditiva com histórico maior
+⭐ Se este projeto te ajudou, deixe uma estrela no repositório!
 
-Status do projeto
+---
 
-Em desenvolvimento 🚧
+## Como atualizar no GitHub
 
-Projeto em evolução contínua, com foco em aprendizado prático, arquitetura profissional e fortalecimento de portfólio.
+No terminal:
+
+```bash
+git add README.md
+git commit -m "docs: README premium profissional"
+git push

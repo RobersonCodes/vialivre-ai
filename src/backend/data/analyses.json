@@ -1,0 +1,53 @@
+[
+  {
+    "id": "3jvpcrc8",
+    "origem": "Avenida Feitoria, Loteamento Novo Acácias, Feitoria, São Leopoldo, Região Geográfica Imediata de Novo Hamburgo - São Leopoldo, Região Metropolitana de Porto Alegre, Região Geográfica Intermediária de Porto Alegre, Rio Grande do Sul, Região Sul, 93048-240, Brasil",
+    "destino": "Taquara",
+    "horario": "22:00",
+    "clima": "nublado",
+    "transporte": "carro",
+    "distanciaKm": 48.5,
+    "tempoBase": 73,
+    "trafego": "leve",
+    "risco": 55,
+    "classificacaoIA": "Médio",
+    "chanceLeve": 85,
+    "melhorHorario": "Horário atual adequado",
+    "mensagem": "Trajeto razoável, mas com pontos de atenção.",
+    "createdAt": "2026-03-23T17:40:36.709Z"
+  },
+  {
+    "id": "2w8dmbc2",
+    "origem": "Avenida Feitoria, Loteamento Novo Acácias, Feitoria, São Leopoldo, Região Geográfica Imediata de Novo Hamburgo - São Leopoldo, Região Metropolitana de Porto Alegre, Região Geográfica Intermediária de Porto Alegre, Rio Grande do Sul, Região Sul, 93048-240, Brasil",
+    "destino": "Canoas",
+    "horario": "21:00",
+    "clima": "nublado",
+    "transporte": "carro",
+    "distanciaKm": 22.3,
+    "tempoBase": 33,
+    "trafego": "leve",
+    "risco": 33,
+    "classificacaoIA": "Médio",
+    "chanceLeve": 85,
+    "melhorHorario": "Horário atual adequado",
+    "mensagem": "Boa condição para seguir no horário informado.",
+    "createdAt": "2026-03-23T17:32:45.953Z"
+  },
+  {
+    "id": "6jo2ix5f",
+    "origem": "Rua Jacob Wilers, Campestre, São Leopoldo, Região Geográfica Imediata de Novo Hamburgo - São Leopoldo, Região Metropolitana de Porto Alegre, Região Geográfica Intermediária de Porto Alegre, Rio Grande do Sul, Região Sul, 93056-120, Brasil",
+    "destino": "Sapiranga",
+    "horario": "14:00",
+    "clima": "nublado",
+    "transporte": "carro",
+    "distanciaKm": 25.2,
+    "tempoBase": 38,
+    "trafego": "leve",
+    "risco": 33,
+    "classificacaoIA": "Médio",
+    "chanceLeve": 85,
+    "melhorHorario": "Horário atual adequado",
+    "mensagem": "Boa condição para seguir no horário informado.",
+    "createdAt": "2026-03-23T17:17:05.413Z"
+  }
+]

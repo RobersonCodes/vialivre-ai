@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ViaLivre AI | Mobilidade Inteligente</title>
+  <meta
+    name="description"
+    content="Aplicação web que analisa trânsito, clima, rota e transporte para recomendar o melhor horário de saída."
+  />
+  <meta name="author" content="Roberson de Oliveira" />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    crossorigin=""
+  />
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    crossorigin=""
+  ></script>
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true">
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-grid"></div>
+  </div>
+
+  <header class="topbar">
+    <div class="container topbar-content">
+      <div class="brand-block">
+        <div class="brand-logo">VL</div>
+        <div class="brand-text">
+          <strong>ViaLivre AI</strong>
+          <span>Mobilidade Inteligente</span>
+        </div>
+      </div>
+
+      <nav class="topbar-nav" aria-label="Navegação principal">
+        <a href="#painel">Painel</a>
+        <a href="#simulador">Simulador</a>
+        <a href="#comparacoes">Comparações</a>
+        <a href="#historico">Histórico</a>
+        <a href="#mapa-sec">Mapa</a>
+      </nav>
+    </div>
+  </header>
+
+  <header class="hero">
+    <div class="container hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        AI Powered Mobility
+      </div>
+
+      <h1>
+        Preveja atrasos antes
+        <span>de sair de casa</span>
+      </h1>
+
+      <p class="hero-text">
+        O ViaLivre AI combina rota, clima, transporte e inteligência artificial
+        para calcular risco de atraso, comparar cenários e sugerir o melhor
+        momento para sair.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#simulador" class="hero-btn hero-btn-primary">Analisar trajeto</a>
+        <a href="#painel" class="hero-btn hero-btn-secondary">Ver painel</a>
+      </div>
+
+      <div class="hero-mini-highlights">
+        <article class="hero-highlight-card">
+          <strong>Rota + mapa</strong>
+          <span>Visualização geográfica do trajeto em tempo real</span>
+        </article>
+
+        <article class="hero-highlight-card">
+          <strong>Clima automático</strong>
+          <span>Previsão integrada ao horário escolhido</span>
+        </article>
+
+        <article class="hero-highlight-card">
+          <strong>Comparação inteligente</strong>
+          <span>Horários e modais ranqueados por IA</span>
+        </article>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main-layout">
+    <section id="painel" class="stats-grid" aria-label="Resumo das análises">
+      <article class="stat-card">
+        <div class="stat-icon">📊</div>
+        <div class="stat-content">
+          <span class="stat-label">Total de análises</span>
+          <strong id="stat-total">0</strong>
+          <small>histórico acumulado</small>
+        </div>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-content">
+          <span class="stat-label">Último tempo estimado</span>
+          <strong id="stat-tempo">--</strong>
+          <small>trajeto mais recente</small>
+        </div>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon">🚦</div>
+        <div class="stat-content">
+          <span class="stat-label">Nível atual</span>
+          <strong id="stat-trafego">--</strong>
+          <small>situação prevista</small>
+        </div>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-icon">🧠</div>
+        <div class="stat-content">
+          <span class="stat-label">Tempo médio</span>
+          <strong id="stat-media">--</strong>
+          <small>com base nas análises</small>
+        </div>
+      </article>
+    </section>
+
+    <section class="insights-strip" aria-label="Insights rápidos">
+      <article class="insight-pill">
+        <span class="insight-pill-label">Melhor horário</span>
+        <strong id="insight-best-time">--</strong>
+      </article>
+
+      <article class="insight-pill">
+        <span class="insight-pill-label">Modal recomendado</span>
+        <strong id="insight-best-mode">--</strong>
+      </article>
+
+      <article class="insight-pill">
+        <span class="insight-pill-label">Risco médio</span>
+        <strong id="insight-risk-avg">--</strong>
+      </article>
+
+      <article class="insight-pill">
+        <span class="insight-pill-label">Status geral</span>
+        <strong id="insight-status">--</strong>
+      </article>
+    </section>
+
+    <section id="simulador" class="panel-grid">
+      <section class="card premium-card form-card">
+        <div class="section-header">
+          <span class="section-tag">Simulação inteligente</span>
+          <h2>Planeje seu deslocamento com precisão</h2>
+          <p>
+            Informe os dados do trajeto para gerar uma recomendação baseada em rota,
+            clima, transporte e previsão por IA.
+          </p>
+        </div>
+
+        <form id="form-analise" class="form-grid">
+          <div class="form-group autocomplete-group">
+            <label for="origem">Origem</label>
+
+            <div class="input-with-location">
+              <input
+                type="text"
+                id="origem"
+                name="origem"
+                placeholder="Ex: Rua Independência, São Leopoldo"
+                autocomplete="off"
+                required
+              />
+
+              <button
+                type="button"
+                id="btn-minha-localizacao"
+                class="btn-location"
+                title="Usar minha localização atual"
+                aria-label="Usar minha localização atual como origem"
+              >
+                <span class="btn-location-icon">📍</span>
+                <span class="btn-location-text">Minha localização</span>
+              </button>
+            </div>
+
+            <div id="origem-sugestoes" class="autocomplete-list"></div>
+          </div>
+
+          <div class="form-group autocomplete-group">
+            <label for="destino">Destino</label>
+            <input
+              type="text"
+              id="destino"
+              name="destino"
+              placeholder="Ex: Av. Carlos Gomes, Porto Alegre"
+              autocomplete="off"
+              required
+            />
+            <div id="destino-sugestoes" class="autocomplete-list"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="horario">Horário de saída</label>
+            <input type="time" id="horario" name="horario" required />
+          </div>
+
+          <div class="form-group">
+            <label for="clima">Condição climática</label>
+            <select id="clima" name="clima" required>
+              <option value="sol">☀️ Sol</option>
+              <option value="nublado">☁️ Nublado</option>
+              <option value="garoa">🌦️ Garoa</option>
+              <option value="chuva">🌧️ Chuva</option>
+              <option value="tempestade">⛈️ Tempestade</option>
+            </select>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="transporte">Tipo de transporte</label>
+            <select id="transporte" name="transporte" required>
+              <option value="carro">🚗 Carro</option>
+              <option value="moto">🏍️ Moto</option>
+              <option value="onibus">🚌 Ônibus</option>
+              <option value="caminhar">🚶 Caminhar</option>
+              <option value="bicicleta">🚲 Bicicleta</option>
+            </select>
+          </div>
+
+          <div class="form-actions full-width">
+            <button type="submit" id="btn-analisar" class="btn-primary-glow">
+              <span>Analisar trajeto</span>
+            </button>
+
+            <button type="button" id="btn-navegar-gps" class="btn-secondary-nav">
+              <span>🧭 Navegar com GPS</span>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card premium-card result-card">
+        <div class="section-header">
+          <span class="section-tag">Resultado da IA</span>
+          <h2>Previsão inteligente do seu trajeto</h2>
+          <p>
+            A análise será atualizada com base nas informações informadas
+            e no score calculado pelo sistema.
+          </p>
+        </div>
+
+        <div id="mensagem-status" class="status-msg hidden" aria-live="polite"></div>
+
+        <div class="result-tabs" role="tablist" aria-label="Abas de resultado">
+          <button type="button" class="result-tab active">Resumo</button>
+          <button type="button" class="result-tab">Risco</button>
+          <button type="button" class="result-tab">Contexto</button>
+        </div>
+
+        <div class="result-shell">
+          <div class="result-topline">
+            <span class="result-chip">AI Analysis</span>
+            <span class="result-chip result-chip-soft">Risk Engine</span>
+            <span class="result-chip result-chip-soft">Mobility Score</span>
+          </div>
+
+          <div id="resultado" class="resultado neutro" aria-live="polite">
+            A recomendação aparecerá aqui.
+          </div>
+        </div>
+
+        <div class="risk-box">
+          <div class="risk-topo">
+            <span>Nível de risco</span>
+            <strong id="risk-label">--</strong>
+          </div>
+
+          <div class="risk-bar" aria-label="Barra de risco">
+            <div id="risk-fill" class="risk-fill"></div>
+          </div>
+
+          <small id="risk-percent">0%</small>
+        </div>
+
+        <div class="quick-insights-grid">
+          <article class="quick-insight-card">
+            <span class="quick-insight-label">Melhor foco</span>
+            <strong id="insight-focus">--</strong>
+          </article>
+
+          <article class="quick-insight-card">
+            <span class="quick-insight-label">Modal sugerido</span>
+            <strong id="insight-modal">--</strong>
+          </article>
+
+          <article class="quick-insight-card">
+            <span class="quick-insight-label">Janela ideal</span>
+            <strong id="insight-window">--</strong>
+          </article>
+        </div>
+      </section>
+    </section>
+
+    <section id="comparacoes" class="comparison-stack">
+      <section class="card premium-card comparison-section">
+        <div class="section-header">
+          <span class="section-tag">Comparação inteligente</span>
+          <h2>Melhor janela de saída</h2>
+          <p>Veja horários alternativos para reduzir risco e tempo estimado.</p>
+        </div>
+
+        <div class="ranking-toolbar">
+          <span class="ranking-label">Ordenar por:</span>
+
+          <div class="ranking-toggle">
+            <button type="button" class="ranking-btn active" data-ranking="equilibrio">
+              Equilíbrio
+            </button>
+            <button type="button" class="ranking-btn" data-ranking="tempo">
+              Tempo
+            </button>
+            <button type="button" class="ranking-btn" data-ranking="risco">
+              Risco
+            </button>
+          </div>
+        </div>
+
+        <div id="comparacao-horarios" class="resultado neutro comparison-placeholder" aria-live="polite">
+          A comparação automática aparecerá aqui.
+        </div>
+      </section>
+
+      <section class="card premium-card comparison-section">
+        <div class="section-header">
+          <span class="section-tag">Comparação de modais</span>
+          <h2>Qual transporte compensa mais?</h2>
+          <p>Veja a diferença entre carro, moto, ônibus, bicicleta e caminhada.</p>
+        </div>
+
+        <div class="ranking-toolbar">
+          <span class="ranking-label">Ordenar por:</span>
+
+          <div class="ranking-toggle">
+            <button type="button" class="ranking-btn active" data-ranking="equilibrio">
+              Equilíbrio
+            </button>
+            <button type="button" class="ranking-btn" data-ranking="tempo">
+              Tempo
+            </button>
+            <button type="button" class="ranking-btn" data-ranking="risco">
+              Risco
+            </button>
+          </div>
+        </div>
+
+        <div id="comparacao-transportes" class="resultado neutro comparison-placeholder" aria-live="polite">
+          A comparação entre transportes aparecerá aqui.
+        </div>
+      </section>
+    </section>
+
+    <section id="historico" class="dashboard-grid">
+      <section class="card premium-card">
+        <div class="historico-topo">
+          <div>
+            <span class="section-tag">Histórico</span>
+            <h2>Últimas análises</h2>
+            <p class="section-subtext">
+              Registro recente das simulações salvas pelo sistema.
+            </p>
+          </div>
+
+          <button class="btn-limpar" type="button" onclick="limparHistorico()">
+            Limpar histórico
+          </button>
+        </div>
+
+        <ul id="lista" class="lista-historico" aria-live="polite"></ul>
+      </section>
+
+      <section class="card premium-card">
+        <div class="section-header">
+          <span class="section-tag">Tendência</span>
+          <h2>Histórico de tempo</h2>
+          <p>Visualize a variação do tempo estimado ao longo das análises.</p>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="grafico"></canvas>
+        </div>
+      </section>
+    </section>
+
+    <section id="mapa-sec" class="card premium-card map-card">
+      <div class="section-header">
+        <span class="section-tag">Mapa interativo</span>
+        <h2>Visualização geográfica do trajeto</h2>
+        <p>Origem, destino e rota estimada em uma visualização moderna.</p>
+      </div>
+
+      <div id="mapa" role="img" aria-label="Mapa do trajeto"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>
+      Desenvolvido por <strong>Roberson de Oliveira</strong>
+      <span class="footer-sep">•</span>
+      Projeto de portfólio com IA, backend e mobilidade inteligente
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

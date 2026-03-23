@@ -1,72 +1,138 @@
 const analysisService = require("../services/analysisService");
-const { successResponse } = require("../utils/apiResponse");
 
-async function getAnalyses(req, res, next) {
+function validateInput(body) {
+  const {
+    origem,
+    destino,
+    horario,
+    clima,
+    transporte,
+    distanciaKm,
+    tempoBase,
+    trafego,
+    risco
+  } = body;
+
+  if (!origem || typeof origem !== "string") {
+    return { valid: false, message: "Origem é obrigatória." };
+  }
+
+  if (!destino || typeof destino !== "string") {
+    return { valid: false, message: "Destino é obrigatório." };
+  }
+
+  if (!horario || typeof horario !== "string") {
+    return { valid: false, message: "Horário é obrigatório." };
+  }
+
+  if (!clima || typeof clima !== "string") {
+    return { valid: false, message: "Clima é obrigatório." };
+  }
+
+  if (!transporte || typeof transporte !== "string") {
+    return { valid: false, message: "Transporte é obrigatório." };
+  }
+
+  if (typeof distanciaKm !== "number" || Number.isNaN(distanciaKm)) {
+    return { valid: false, message: "Distância inválida." };
+  }
+
+  if (typeof tempoBase !== "number" || Number.isNaN(tempoBase)) {
+    return { valid: false, message: "Tempo estimado inválido." };
+  }
+
+  if (!trafego || typeof trafego !== "string") {
+    return { valid: false, message: "Tráfego é obrigatório." };
+  }
+
+  if (typeof risco !== "number" || Number.isNaN(risco)) {
+    return { valid: false, message: "Risco inválido." };
+  }
+
+  return { valid: true };
+}
+
+async function getAnalyses(req, res) {
   try {
     const analyses = await analysisService.getAllAnalyses();
 
-    return successResponse(
-      res,
-      {
-        total: analyses.length,
-        items: analyses
-      },
-      "Análises listadas com sucesso.",
-      200
-    );
+    res.status(200).json({
+      success: true,
+      total: analyses.length,
+      data: analyses
+    });
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Erro ao buscar análises."
+    });
   }
 }
 
-async function createAnalysis(req, res, next) {
-  try {
-    const newAnalysis = await analysisService.createAnalysis(req.body);
-
-    return successResponse(
-      res,
-      newAnalysis,
-      "Análise criada com sucesso.",
-      201
-    );
-  } catch (error) {
-    next(error);
-  }
-}
-
-async function clearAnalyses(req, res, next) {
-  try {
-    const result = await analysisService.clearAnalyses();
-
-    return successResponse(
-      res,
-      result,
-      "Histórico removido com sucesso.",
-      200
-    );
-  } catch (error) {
-    next(error);
-  }
-}
-
-async function getStatistics(req, res, next) {
+async function getStats(req, res) {
   try {
     const stats = await analysisService.getStats();
 
-    return successResponse(
-      res,
-      stats,
-      "Estatísticas carregadas com sucesso.",
-      200
-    );
+    res.status(200).json({
+      success: true,
+      data: stats
+    });
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Erro ao buscar estatísticas."
+    });
+  }
+}
+
+async function createAnalysis(req, res) {
+  try {
+    const validation = validateInput(req.body);
+
+    if (!validation.valid) {
+      return res.status(400).json({
+        success: false,
+        message: validation.message
+      });
+    }
+
+    const newAnalysis = await analysisService.createAnalysis(req.body);
+
+    res.status(201).json({
+      success: true,
+      data: newAnalysis
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Erro ao salvar análise."
+    });
+  }
+}
+
+async function clearAnalyses(req, res) {
+  try {
+    const result = await analysisService.clearAnalyses();
+
+    res.status(200).json({
+      success: true,
+      data: result
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Erro ao limpar análises."
+    });
   }
 }
 
 module.exports = {
   getAnalyses,
+  getStats,
   createAnalysis,
-  clearAnalyses,
-  getStatistics
+  clearAnalyses
 };

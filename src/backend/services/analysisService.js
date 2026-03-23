@@ -1,141 +1,140 @@
-const axios = require("axios");
-const analysisRepository = require("../repositories/analysisRepository");
-const AppError = require("../utils/AppError");
+const store = require("../data/analysesStore");
 
-async function predictRiskWithAI(data) {
-
-  const hora = parseInt(
-    (data.horario || "00:00").split(":")[0],
-    10
-  );
-
-  const payload = {
-    origem: data.origem,
-    destino: data.destino,
-    hora,
-    clima: data.clima,
-    transporte: data.transporte,
-    distancia_km: Number(data.distanciaKm || 0),
-    tempo_base: Number(data.tempoBase || 20)
-  };
-
-  try {
-
-    const response = await axios.post(
-      "http://127.0.0.1:8000/predict",
-      payload
-    );
-
-    return response.data;
-
-  } catch (error) {
-
-    console.error("Erro ao chamar IA:", error.message);
-
-    throw new AppError(
-      "Serviço de IA indisponível.",
-      503
-    );
-
-  }
-
+function gerarId() {
+  return Math.random().toString(36).substring(2, 10);
 }
 
-function gerarMensagem(trafego) {
-
-  if (trafego === "intenso") {
-    return "Alta probabilidade de atraso.";
-  }
-
-  if (trafego === "moderado") {
-    return "Pode haver pequeno atraso.";
-  }
-
-  return "Condições favoráveis.";
-
+function classificarRisco(risco) {
+  if (risco <= 30) return "Baixo";
+  if (risco <= 60) return "Médio";
+  if (risco <= 80) return "Alto";
+  return "Muito alto";
 }
 
-async function createAnalysis(payload) {
+function normalizeAnalysisPayload(payload) {
 
-  if (!payload) {
+  const risco = Number(payload.risco);
+  const tempoBase = Number(payload.tempoBase);
+  const distanciaKm = Number(payload.distanciaKm);
 
-    throw new AppError(
-      "Dados não enviados.",
-      400
-    );
+  return {
 
-  }
+    id: gerarId(),
 
-  const ai = await predictRiskWithAI(payload);
+    origem: payload.origem.trim(),
+    destino: payload.destino.trim(),
 
-  const analysis = {
-
-    origem: payload.origem,
-    destino: payload.destino,
     horario: payload.horario,
     clima: payload.clima,
     transporte: payload.transporte,
 
-    distanciaKm: payload.distanciaKm || 0,
+    distanciaKm,
+    tempoBase,
 
-    tempoBase: payload.tempoBase || 20,
+    trafego: payload.trafego,
 
-    risco: Math.round(ai.risco),
+    risco,
 
-    chanceLeve: ai.chanceLeve,
+    classificacaoIA:
+      payload.classificacaoIA ||
+      classificarRisco(risco),
 
-    trafego: ai.trafego,
+    chanceLeve:
+      typeof payload.chanceLeve === "number"
+        ? payload.chanceLeve
+        : null,
 
-    classificacaoIA: ai.classificacaoIA,
+    melhorHorario:
+      payload.melhorHorario ||
+      "Horário atual adequado",
 
-    mensagem: gerarMensagem(ai.trafego),
+    mensagem:
+      payload.mensagem ||
+      "Análise concluída.",
 
-    melhorHorario: payload.horario
+    createdAt: new Date().toISOString()
 
   };
-
-  return analysisRepository.createAnalysis(analysis);
 
 }
 
 async function getAllAnalyses() {
 
-  return analysisRepository.getAllAnalyses();
+  const lista = store.getAll();
 
-}
-
-async function clearAnalyses() {
-
-  return analysisRepository.clearAnalyses();
+  return lista.sort(
+    (a, b) =>
+      new Date(b.createdAt) -
+      new Date(a.createdAt)
+  );
 
 }
 
 async function getStats() {
 
-  const analyses = await analysisRepository.getAllAnalyses();
+  const analyses = store.getAll();
 
-  const total = analyses.length;
-
-  if (!total) {
+  if (analyses.length === 0) {
 
     return {
-      total: 0
+
+      totalAnalises: 0,
+      riscoMedio: 0,
+      tempoMedio: 0,
+      ultimaAnalise: null
+
     };
 
   }
 
-  const media =
-    analyses.reduce(
-      (sum, a) => sum + (a.risco || 0),
-      0
-    ) / total;
+  const somaRisco = analyses.reduce(
+    (acc, item) =>
+      acc + Number(item.risco || 0),
+    0
+  );
+
+  const somaTempo = analyses.reduce(
+    (acc, item) =>
+      acc + Number(item.tempoBase || 0),
+    0
+  );
 
   return {
 
-    total,
+    totalAnalises: analyses.length,
 
-    riscoMedio:
-      Math.round(media)
+    riscoMedio: Math.round(
+      somaRisco / analyses.length
+    ),
+
+    tempoMedio: Math.round(
+      somaTempo / analyses.length
+    ),
+
+    ultimaAnalise:
+      analyses[analyses.length - 1] || null
+
+  };
+
+}
+
+async function createAnalysis(payload) {
+
+  const analysis =
+    normalizeAnalysisPayload(payload);
+
+  return store.insert(analysis);
+
+}
+
+async function clearAnalyses() {
+
+  store.clear();
+
+  return {
+
+    message:
+      "Histórico removido com sucesso."
 
   };
 
@@ -143,12 +142,9 @@ async function getStats() {
 
 module.exports = {
 
-  createAnalysis,
-
   getAllAnalyses,
-
-  clearAnalyses,
-
-  getStats
+  getStats,
+  createAnalysis,
+  clearAnalyses
 
 };
